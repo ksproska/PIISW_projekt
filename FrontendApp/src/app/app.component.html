@@ -1,1 +1,11 @@
-<h1>Hello world!</h1>
+<nav class="navbar navbar-expand-sm navbar-light" style="background-color: #e3f2fd;">
+  <a class="navbar-brand mb-0 h1" [routerLink]="['home']">
+    <img alt="icon"
+         width="32"
+         height="32"
+         src="favicon.ico">
+  </a>
+  <a class="navbar-brand mb-0 h1" [routerLink]="['login']">Log in</a>
+  <a class="navbar-brand mb-0 h1" [routerLink]="['signin']">Sign in</a>
+</nav>
+<router-outlet></router-outlet>

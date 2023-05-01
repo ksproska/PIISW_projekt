@@ -5,7 +5,7 @@ korzystanie z systemu transportu zbiorowego. **System** umożliwia <ins>weryfika
 
 **Pasażer** może <ins>założyć sobie konto</ins> w systemie. W ramach konta możliwe jest przeglądanie dostępnej oferty biletowe 
 (_bilety czasowe, jednorazowe, okresowe; ulgowe i normalne_). **Pasażer** może wybrać dowolny bilet, wybrać jego ważność 
-(w przypadku biletów czasowych i okresowych) oraz <ins>dokonać zakupu<ins>. Po zakupie, bilet pojawia się w zakładce "moje bilety". 
+(w przypadku biletów czasowych i okresowych) oraz <ins>dokonać zakupu</ins>. Po zakupie, bilet pojawia się w zakładce "moje bilety". 
 Każdy _bilet posiada unikalnie wygenerowany kod_, umożliwiający jego walidację.
 
 **System** powinien posiadać prosty interfejs REST pozwalający na zintegrowanie z systemem kasowników (każdy bilet jednorazowy 
