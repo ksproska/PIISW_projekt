@@ -27,3 +27,8 @@ Funkcja wymaga <ins>zalogowania się</ins> do systemu. Kupujący może <ins>prze
 
 ### Bileter
 Funkcja wymaga <ins>zalogowania się</ins> do systemu. Bileter może <ins>sprawdzać ważność kodu biletu</ins>.
+
+----
+
+## Wstępny projekt
+![uml](readme_images/uml.png)
