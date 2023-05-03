@@ -3,6 +3,9 @@ import {RouterModule, Routes} from "@angular/router";
 import {LoginComponent} from "./public/components/login/login.component";
 import {SignupComponent} from "./public/components/signup/signup.component";
 import {HomeComponent} from "./public/components/home/home.component";
+import {OfferSingleTicketResolver} from "./resolvers/offer-single-ticket.resolver";
+import {OfferSeasonTicketResolver} from "./resolvers/offer-season-ticket.resolver";
+import {OfferCommuterPassResolver} from "./resolvers/offer-commuter-pass.resolver";
 
 const routes: Routes = [
   {
@@ -13,6 +16,11 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+    resolve: {
+      offerSingleTickets: OfferSingleTicketResolver,
+      offerSeasonTickets: OfferSeasonTicketResolver,
+      offerCommuterPass: OfferCommuterPassResolver
+    }
   },
   {
     path: 'login',
