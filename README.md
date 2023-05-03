@@ -31,4 +31,4 @@ Funkcja wymaga <ins>zalogowania się</ins> do systemu. Bileter może <ins>sprawd
 ----
 
 ## Wstępny projekt
-![uml](readme_images/uml.png)
+![uml](readme_images/uml_diagram.png)
