@@ -13,10 +13,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Table(name = "offers")
 public abstract class Offer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "offer_id")
     private Long id;
 
     @Enumerated(EnumType.STRING)

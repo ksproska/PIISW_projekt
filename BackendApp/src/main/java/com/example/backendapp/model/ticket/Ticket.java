@@ -16,10 +16,11 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Ticket {
+@Table(name = "tickets")
+public abstract class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "ticket_id")
     private Long id;
 
     private Date clipTime;
@@ -29,6 +30,7 @@ public class Ticket {
     @Enumerated(EnumType.STRING)
     private Concession concession;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
     private User owner;
 }
