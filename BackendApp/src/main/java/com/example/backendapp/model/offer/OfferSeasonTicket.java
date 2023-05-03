@@ -1,6 +1,6 @@
 package com.example.backendapp.model.offer;
 
-import com.example.backendapp.model.ticket.SeasonTicketDuration;
+import com.example.backendapp.model.common.SeasonTicketDuration;
 import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;

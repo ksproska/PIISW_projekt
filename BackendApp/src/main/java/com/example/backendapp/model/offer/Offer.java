@@ -1,6 +1,6 @@
 package com.example.backendapp.model.offer;
 
-import com.example.backendapp.model.ticket.Concession;
+import com.example.backendapp.model.common.Concession;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
