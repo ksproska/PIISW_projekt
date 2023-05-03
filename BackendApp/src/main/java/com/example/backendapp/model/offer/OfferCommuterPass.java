@@ -1,10 +1,13 @@
-package com.example.backendapp.model.ticket;
+package com.example.backendapp.model.offer;
 
 import com.example.backendapp.model.common.CommuterPassDuration;
 import jakarta.persistence.Entity;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-public class CommuterPass extends Ticket {
-
+@Getter
+@Setter
+public class OfferCommuterPass extends Offer {
     private CommuterPassDuration validityLengthInMinutes;
 }

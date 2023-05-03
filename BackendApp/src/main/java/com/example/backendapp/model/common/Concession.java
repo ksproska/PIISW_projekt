@@ -1,4 +1,4 @@
-package com.example.backendapp.model.ticket;
+package com.example.backendapp.model.common;
 
 public enum Concession {
     NORMAL,

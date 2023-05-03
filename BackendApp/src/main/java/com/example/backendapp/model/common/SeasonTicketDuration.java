@@ -1,15 +1,15 @@
-package com.example.backendapp.model.ticket;
+package com.example.backendapp.model.common;
 
 public enum SeasonTicketDuration {
 
     //DURATION IN DAYS
-    DAY(1),
     WEEK(7),
     MONTH(31),
     SEMESTER(182),
     YEAR(365);
 
     private final int value;
+
     SeasonTicketDuration(int value) {
         this.value = value;
     }
@@ -18,4 +18,4 @@ public enum SeasonTicketDuration {
         return value;
     }
 
-    }
+}

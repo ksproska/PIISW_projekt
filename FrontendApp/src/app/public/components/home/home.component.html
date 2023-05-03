@@ -1,1 +1,31 @@
-<p>home works!</p>
+<article>
+  <h2>offerSingleTickets</h2>
+  <section>
+    <div *ngFor="let offer of offerSingleTickets">
+      <div>
+        <h5>{{ offer.concession }} - {{ offer.price }}</h5>
+      </div>
+    </div>
+  </section>
+</article>
+<article>
+  <h2>offerSeasonTickets</h2>
+  <section>
+    <div *ngFor="let offer of offerSeasonTickets">
+      <div>
+        <h5>{{ offer.concession }} - {{ offer.validityLengthInDays }} - {{ offer.price }}</h5>
+      </div>
+    </div>
+  </section>
+</article>
+
+<article>
+  <h2>offerSeasonTickets</h2>
+  <section>
+    <div *ngFor="let offer of offerCommuterPass">
+      <div>
+        <h5>{{ offer.concession }} - {{ offer.validityLengthInMinutes }} - {{ offer.price }}</h5>
+      </div>
+    </div>
+  </section>
+</article>
