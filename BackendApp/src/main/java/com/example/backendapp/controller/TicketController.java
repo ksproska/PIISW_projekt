@@ -1,5 +1,6 @@
 package com.example.backendapp.controller;
 
+import com.example.backendapp.service.TicketInfo;
 import com.example.backendapp.service.TicketService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/tickets")
 public class TicketController {
     @Autowired
     private TicketService ticketService;
@@ -32,5 +34,10 @@ public class TicketController {
             // TODO log message
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/ticketinfo/{userId}")
+    List<TicketInfo> temp(@PathVariable Long userId) {
+        return ticketService.getTicketInfo(userId);
     }
 }

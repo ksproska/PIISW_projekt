@@ -24,4 +24,4 @@ INSERT INTO tickets(ticket_id, dtype, clip_time, concession, price, user_id, tra
 INSERT INTO tickets(ticket_id, dtype, clip_time, concession, price, user_id, validity_length_in_minutes) VALUES (102, 'CommuterPass', '2023-05-03 04:05:06', 'NORMAL', 3.20, 101, 0);
 INSERT INTO tickets(ticket_id, dtype, clip_time, concession, price, user_id, validity_length_in_days) VALUES (103, 'SeasonTicket', '2023-05-03 04:05:06', 'NORMAL', 38, 101, 0);
 INSERT INTO tickets(ticket_id, dtype, clip_time, concession, price, user_id, tram_id) VALUES (104, 'SingleTicket', '2023-05-04 11:31:00', 'NORMAL', 4.60, 101, '16');
-
+INSERT INTO tickets(ticket_id, dtype, clip_time, concession, price, user_id, validity_length_in_days) VALUES (105, 'SeasonTicket', '2023-05-03 04:05:06', 'REDUCED_FARE', 280, 101, 3);

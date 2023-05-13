@@ -37,4 +37,5 @@ public abstract class Ticket {
     private User owner;
 
     public abstract boolean verifyTicket(String tramId, Date dateOfTicketVerification);
+    public abstract String type();
 }

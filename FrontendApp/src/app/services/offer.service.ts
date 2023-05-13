@@ -17,7 +17,6 @@ export class OfferService {
   }
 
   getAllOfferSingleTickets(): Observable<OfferSingleTicket[]> {
-    console.log(host)
     return this.http.get<OfferSingleTicket[]>(host + offersApiPrefix + "/singletickets");
   }
 

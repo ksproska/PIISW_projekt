@@ -4,7 +4,6 @@ import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -20,5 +19,10 @@ public class SingleTicket extends Ticket{
         return  this.tramId.equalsIgnoreCase(tramId) &&
                 this.getClipTime().before(dateOfTicketVerification) &&
                 this.getClipTime().getDate() == dateOfTicketVerification.getDate();
+    }
+
+    @Override
+    public String type() {
+        return "single ticket";
     }
 }

@@ -26,4 +26,9 @@ public class SeasonTicket extends Ticket{
         return  this.getClipTime().before(dateOfTicketVerification) &&
                 dateOfTicketVerification.before(dateLimit);
     }
+
+    @Override
+    public String type() {
+        return validityLengthInDays.name().toLowerCase() + " (" + validityLengthInDays.getValue() + ")";
+    }
 }
