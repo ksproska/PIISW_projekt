@@ -1,1 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+@import "~bootstrap/dist/css/bootstrap.css";
+
+@font-face {
+  font-family: pacifico;
+  src: url(assets/fonts/Pacifico-Regular.ttf) format("opentype");
+}
+
+.pacifico{
+  font-family: pacifico, fantasy;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

@@ -1,0 +1,32 @@
+<nav class="sticky-top shadow navbar navbar-expand-lg bg-white" *ngIf="isVisible()">
+  <div class="container-fluid">
+    <i class="bi bi-bus-front text-primary fs-3"></i>
+    <a [routerLink]="['home']" class="navbar-brand pacifico fs-3" href="">
+      <span class="text-primary">
+        Smart
+      </span>
+      Ticket
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#hamburgerMenu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="hamburgerMenu">
+      <div class="navbar-nav d-flex">
+        <div  *ngIf="true; then loggedIn else notLoggedIn">
+        </div>
+        <ng-template #loggedIn>
+          <a [routerLink]="['shop']" class="nav-link active">Shop</a>
+          <a [routerLink]="['my-tickets']" class="nav-link active" routerLink="">MyTickets</a>
+          <a (click)="logout()" class="nav-link active">Logout</a>
+        </ng-template>
+
+        <ng-template #notLoggedIn>
+          <a [routerLink]="['signup']" class="nav-link active">SignUp</a>
+          <a [routerLink]="['login']" class="nav-link active">LogIn</a>
+        </ng-template>
+
+      </div>
+    </div>
+  </div>
+</nav>
+

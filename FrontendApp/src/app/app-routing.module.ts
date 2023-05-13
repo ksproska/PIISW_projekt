@@ -3,9 +3,11 @@ import {RouterModule, Routes} from "@angular/router";
 import {LoginComponent} from "./public/components/login/login.component";
 import {SignupComponent} from "./public/components/signup/signup.component";
 import {HomeComponent} from "./public/components/home/home.component";
-import {OfferSingleTicketResolver} from "./resolvers/offer-single-ticket.resolver";
-import {OfferSeasonTicketResolver} from "./resolvers/offer-season-ticket.resolver";
-import {OfferCommuterPassResolver} from "./resolvers/offer-commuter-pass.resolver";
+import {OfferSingleTicketResolver} from "@resolver/offer-single-ticket.resolver";
+import {OfferSeasonTicketResolver} from "@resolver/offer-season-ticket.resolver";
+import {OfferCommuterPassResolver} from "@resolver/offer-commuter-pass.resolver";
+import {ShopComponent} from "./public/components/shop/shop.component";
+import {MyTicketsComponent} from "./public/components/my-tickets/my-tickets.component";
 
 const routes: Routes = [
   {
@@ -29,6 +31,19 @@ const routes: Routes = [
   {
     path: 'signup',
     component: SignupComponent,
+  },
+  {
+    path: 'shop',
+    component: ShopComponent,
+    resolve: {
+      offerSingleTickets: OfferSingleTicketResolver,
+      offerSeasonTickets: OfferSeasonTicketResolver,
+      offerCommuterPass: OfferCommuterPassResolver
+    }
+  },
+  {
+    path: 'my-tickets',
+    component: MyTicketsComponent
   },
 ];
 

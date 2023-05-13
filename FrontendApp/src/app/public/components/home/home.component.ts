@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {OfferSingleTicket} from "../../../models/offer-single-ticket";
-import {OfferSeasonTicket} from "../../../models/offer-season-ticket";
-import {OfferCommuterPass} from "../../../models/offer-commuter-pass";
+import {OfferSeasonTicket, SeasonTicketDuration} from "../../../models/offer-season-ticket";
+import {CommuterPassDuration, OfferCommuterPass} from "../../../models/offer-commuter-pass";
 
 @Component({
   selector: 'app-home',
@@ -13,6 +13,8 @@ export class HomeComponent {
   offerSingleTickets: OfferSingleTicket[]
   offerSeasonTickets: OfferSeasonTicket[]
   offerCommuterPass: OfferCommuterPass[]
+  enumSeason = <any>SeasonTicketDuration
+  enumC = <any>CommuterPassDuration
 
   constructor(private readonly activatedRoute: ActivatedRoute) {
     this.offerSingleTickets = this.activatedRoute.snapshot.data['offerSingleTickets'];
