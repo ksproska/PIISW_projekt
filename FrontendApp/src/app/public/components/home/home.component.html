@@ -13,12 +13,11 @@
   <section>
     <div *ngFor="let offer of offerSeasonTickets">
       <div>
-        <h5>{{ offer.concession }} - {{ offer.validityLengthInDays }} - {{ offer.price }}</h5>
+        <h5>{{ offer.concession }} - {{ enumSeason[offer.validityLengthInDays] }} - {{ offer.price }}</h5>
       </div>
     </div>
   </section>
 </article>
-
 <article>
   <h2>offerSeasonTickets</h2>
   <section>

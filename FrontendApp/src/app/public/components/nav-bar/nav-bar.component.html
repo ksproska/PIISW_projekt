@@ -1,23 +1,25 @@
 <nav class="sticky-top shadow navbar navbar-expand-lg bg-white" *ngIf="isVisible()">
   <div class="container-fluid">
-    <a href="" class="navbar-brand pacifico fs-3 nav-item" [routerLink]="['home']">
+    <i class="bi bi-bus-front text-primary fs-3"></i>
+    <a [routerLink]="['home']" class="navbar-brand pacifico fs-3" href="">
       <span class="text-primary">
-        <i class="bi bi-bus-front"></i>
         Smart
       </span>
       Ticket
     </a>
-    <div class="justify-content-end">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#hamburgerMenu"
-              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="navbar-nav ml-auto navbar-collapse collapse" id="hamburgerMenu">
-        <div class="d-md-flex" *ngIf="true; else notLoggedIn">
-          <a class="nav-link active" aria-current="page" routerLink="">Shop</a>
-          <a class="nav-link active" aria-current="page" routerLink="">MyTickets</a>
-          <a class="nav-link active" (click)="logout()">Logout</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#hamburgerMenu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="hamburgerMenu">
+      <div class="navbar-nav d-flex">
+        <div  *ngIf="true; then loggedIn else notLoggedIn">
         </div>
+        <ng-template #loggedIn>
+          <a [routerLink]="['shop']" class="nav-link active">Shop</a>
+          <a [routerLink]="['my-tickets']" class="nav-link active" routerLink="">MyTickets</a>
+          <a (click)="logout()" class="nav-link active">Logout</a>
+        </ng-template>
+
         <ng-template #notLoggedIn>
           <a [routerLink]="['signup']" class="nav-link active">SignUp</a>
           <a [routerLink]="['login']" class="nav-link active">LogIn</a>
@@ -27,3 +29,4 @@
     </div>
   </div>
 </nav>
+
