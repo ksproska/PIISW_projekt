@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {TicketInfo} from "../../../models/ticket-info";
 
 @Component({
   selector: 'app-my-tickets',
@@ -6,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./my-tickets.component.css']
 })
 export class MyTicketsComponent {
+  ticketInfos: TicketInfo[]
 
+  constructor(private readonly activatedRoute: ActivatedRoute) {
+    this.ticketInfos = this.activatedRoute.snapshot.data['ticketInfos'];
+  }
 }

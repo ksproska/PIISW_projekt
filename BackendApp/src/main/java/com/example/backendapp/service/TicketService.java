@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -24,5 +25,12 @@ public class TicketService {
         var ticket = ticketRepository.findById(id);
         if (ticket.isEmpty()) throw new NoSuchElementException("Ticket with id '" + id + "' not found");
         return ticket.get().verifyTicket(tramId, Calendar.getInstance().getTime());
+    }
+
+    public List<TicketInfo> getTicketInfo(Long userId) {
+        List<Ticket> tickets = ticketRepository.findAllByOwnerId(userId);
+        List<TicketInfo> ticketInfos = tickets.stream().map(t -> new TicketInfo(t)).toList();
+        System.out.println(ticketInfos);
+        return ticketInfos;
     }
 }

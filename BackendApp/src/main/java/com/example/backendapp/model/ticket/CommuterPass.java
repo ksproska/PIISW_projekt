@@ -26,4 +26,9 @@ public class CommuterPass extends Ticket {
         return  this.getClipTime().before(dateOfTicketVerification) &&
                 dateOfTicketVerification.before(dateLimit);
     }
+
+    @Override
+    public String type() {
+        return validityLengthInMinutes.name().toLowerCase() + " (" + validityLengthInMinutes.getValue() + ")";
+    }
 }

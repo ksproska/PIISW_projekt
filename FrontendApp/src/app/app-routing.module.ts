@@ -8,6 +8,7 @@ import {OfferSeasonTicketResolver} from "@resolver/offer-season-ticket.resolver"
 import {OfferCommuterPassResolver} from "@resolver/offer-commuter-pass.resolver";
 import {ShopComponent} from "./public/components/shop/shop.component";
 import {MyTicketsComponent} from "./public/components/my-tickets/my-tickets.component";
+import {TicketResolver} from "@resolver/ticket.resolver";
 
 const routes: Routes = [
   {
@@ -43,7 +44,10 @@ const routes: Routes = [
   },
   {
     path: 'my-tickets',
-    component: MyTicketsComponent
+    component: MyTicketsComponent,
+    resolve: {
+      ticketInfos: TicketResolver
+    }
   },
 ];
 
