@@ -21,5 +21,7 @@ INSERT INTO users(user_id, dtype, username, password) VALUES (101, 'Passenger', 
 INSERT INTO users(user_id, dtype, username, password) VALUES (102, 'TicketCollector', 'jankowalski', 'anotherstrongpassword');
 
 INSERT INTO tickets(ticket_id, dtype, clip_time, concession, price, user_id, tram_id) VALUES (101, 'SingleTicket', '2023-05-03 04:05:06', 'NORMAL', 4.60, 101, 'A124');
-INSERT INTO tickets(ticket_id, dtype, clip_time, concession, price, user_id, validity_length_in_minutes) VALUES (102, 'OfferCommuterPass', '2023-05-03 04:05:06', 'NORMAL', 3.20, 101, 0);
-INSERT INTO tickets(ticket_id, dtype, clip_time, concession, price, user_id, validity_length_in_days) VALUES (103, 'OfferSeasonTicket', '2023-05-03 04:05:06', 'NORMAL', 38, 101, 0);
+INSERT INTO tickets(ticket_id, dtype, clip_time, concession, price, user_id, validity_length_in_minutes) VALUES (102, 'CommuterPass', '2023-05-03 04:05:06', 'NORMAL', 3.20, 101, 0);
+INSERT INTO tickets(ticket_id, dtype, clip_time, concession, price, user_id, validity_length_in_days) VALUES (103, 'SeasonTicket', '2023-05-03 04:05:06', 'NORMAL', 38, 101, 0);
+INSERT INTO tickets(ticket_id, dtype, clip_time, concession, price, user_id, tram_id) VALUES (104, 'SingleTicket', '2023-05-04 11:31:00', 'NORMAL', 4.60, 101, '16');
+

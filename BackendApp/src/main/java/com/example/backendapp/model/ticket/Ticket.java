@@ -2,6 +2,7 @@ package com.example.backendapp.model.ticket;
 
 import com.example.backendapp.model.common.Concession;
 import com.example.backendapp.model.user.User;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,6 +17,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Table(name = "tickets")
 public abstract class Ticket {
     @Id
@@ -30,7 +32,9 @@ public abstract class Ticket {
     @Enumerated(EnumType.STRING)
     private Concession concession;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User owner;
+
+    public abstract boolean verifyTicket(String tramId, Date dateOfTicketVerification);
 }
