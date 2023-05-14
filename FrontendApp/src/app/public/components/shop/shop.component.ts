@@ -5,6 +5,7 @@ import {CommuterPassDuration, OfferCommuterPass} from "../../../models/offer-com
 import {ActivatedRoute} from "@angular/router";
 import {FormBuilder} from "@angular/forms";
 import {Subscription} from "rxjs";
+import {TicketServiceService} from "../../../services/ticket-service.service";
 
 @Component({
   selector: 'app-shop',
@@ -14,7 +15,9 @@ import {Subscription} from "rxjs";
 export class ShopComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   constructor(private activatedRoute: ActivatedRoute,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private readonly service: TicketServiceService
+  ) {
     this.offerSingleTickets = this.activatedRoute.snapshot.data['offerSingleTickets'];
     this.offerSeasonTickets = this.activatedRoute.snapshot.data['offerSeasonTickets'];
     this.offerCommuterPass = this.activatedRoute.snapshot.data['offerCommuterPass'];
@@ -37,6 +40,7 @@ export class ShopComponent implements OnInit, OnDestroy {
   commuterPass: OfferCommuterPass[] | undefined
   selectedSeasonTicket: OfferSeasonTicket | undefined
   selectedCommuterTicket: OfferCommuterPass | undefined
+  selectedSingleTicket: OfferSingleTicket | undefined
   ticketForm = this.formBuilder.group({
     concession: [false],
     seasonTicketLength: [''],
@@ -102,5 +106,13 @@ export class ShopComponent implements OnInit, OnDestroy {
     return this.ticketForm.controls['commuterTicketLength']
   }
 
+  purchaseSeasonTicket() {
+    // @ts-ignore
+    this.service.putSeasonTicket(this.selectedSeasonTicket.id, 101); // TODO remove userId
+  }
 
+  purchaseCommuterPass() {
+    // @ts-ignore
+    this.service.putCommuterPass(this.selectedCommuterTicket.id, 101); // TODO remove userId
+  }
 }

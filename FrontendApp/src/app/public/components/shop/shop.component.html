@@ -20,7 +20,7 @@
           </option>
         </select>
         <div class="d-flex justify-content-between fs-1 mt-3">
-          <button type="button" class="btn btn-outline-primary fs-3" >
+          <button (click)="purchaseSeasonTicket()" type="button" class="btn btn-outline-primary fs-3" >
             Purchase
           </button>
           <div class="card-text d-flex justify-content-end ">
@@ -46,7 +46,7 @@
           </option>
         </select>
         <div class="d-flex justify-content-between fs-1 mt-3">
-          <button type="button" class="btn btn-outline-primary fs-3" >
+          <button (click)="purchaseCommuterPass()" type="button" class="btn btn-outline-primary fs-3" >
             Purchase
           </button>
           <div class="card-text d-flex justify-content-end ">
@@ -73,8 +73,8 @@
           </button>
           <div class="card-text d-flex justify-content-end ">
             Price:
-            <span class="ms-2 text-primary" *ngIf="selectedCommuterTicket">
-            {{selectedCommuterTicket.price}} PLN
+            <span class="ms-2 text-primary" *ngIf="selectedSingleTicket">
+            {{selectedSingleTicket.price}} PLN
           </span>
           </div>
         </div>
