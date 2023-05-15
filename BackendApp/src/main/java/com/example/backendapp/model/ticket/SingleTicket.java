@@ -14,10 +14,14 @@ public class SingleTicket extends Ticket{
     private String tramId;
 
     @Override
-    public boolean verifyTicket(String tramId, Date dateOfTicketVerification)
-    {
-        return  this.tramId.equalsIgnoreCase(tramId) &&
-                this.getClipTime().before(dateOfTicketVerification) &&
+    public boolean isActiveForTram(String tramId, Date dateOfTicketVerification) {
+        return  this.tramId.equalsIgnoreCase(tramId) && isActive(dateOfTicketVerification);
+    }
+
+    @Override
+    public boolean isActive(Date dateOfTicketVerification) {
+        if (getClipTime() == null) return false;
+        return this.getClipTime().before(dateOfTicketVerification) &&
                 this.getClipTime().getDate() == dateOfTicketVerification.getDate();
     }
 

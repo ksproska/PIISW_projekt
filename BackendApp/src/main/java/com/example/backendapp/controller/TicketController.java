@@ -18,18 +18,21 @@ public class TicketController {
     @Autowired
     private TicketService ticketService;
 
-    @GetMapping("/{id}/verify/{tramId}")
-    public ResponseEntity<Object> VerifyTicket(@PathVariable long id, @PathVariable String tramId)
-    {
-        try
-        {
-            var result = ticketService.verifyTicket(id, tramId);
+    @GetMapping("/{ticketId}/verify/{tramId}")
+    public ResponseEntity<Object> verifyTicket(@PathVariable long ticketId, @PathVariable String tramId) {
+        try {
+            var result = ticketService.isActiveForTram(ticketId, tramId);
             return ResponseEntity.ok(result);
         }
-        catch (NoSuchElementException e)
-        {
-            // TODO log message
+        catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    @PutMapping("/{ticketId}/activate/{tramId}")
+    public void activateTicket(@PathVariable long ticketId, @PathVariable String tramId) {
+        var wasActivated = ticketService.activateTicket(ticketId, tramId);
+        if (!wasActivated) {
+            throw new IllegalStateException("Couldn't activate this ticket");
         }
     }
 

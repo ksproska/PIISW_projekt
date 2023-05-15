@@ -16,9 +16,14 @@ public class SeasonTicket extends Ticket{
     private SeasonTicketDuration validityLengthInDays;
 
     @Override
-    public boolean verifyTicket(String tramId, Date dateOfTicketVerification)
-    {
-        Calendar calendar = Calendar.getInstance();
+    public boolean isActiveForTram(String tramId, Date dateOfTicketVerification) {
+        return isActive(dateOfTicketVerification);
+    }
+
+    @Override
+    public boolean isActive(Date dateOfTicketVerification) {
+        if (this.getClipTime() == null) return false;
+        var calendar = Calendar.getInstance();
         calendar.setTime(this.getClipTime());
         calendar.add(Calendar.DATE, this.validityLengthInDays.getValue());
         var dateLimit = calendar.getTime();

@@ -25,6 +25,7 @@ public abstract class Ticket {
     @Column(nullable = false, name = "ticket_id")
     private Long id;
 
+    @Column(nullable = true)
     private Date clipTime;
 
     private Double price;
@@ -36,6 +37,7 @@ public abstract class Ticket {
     @JoinColumn(name = "user_id", nullable = false)
     private User owner;
 
-    public abstract boolean verifyTicket(String tramId, Date dateOfTicketVerification);
+    public abstract boolean isActiveForTram(String tramId, Date dateOfTicketVerification);
+    public abstract boolean isActive(Date dateOfTicketVerification);
     public abstract String type();
 }
