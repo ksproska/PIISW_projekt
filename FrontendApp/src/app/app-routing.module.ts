@@ -19,11 +19,6 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    resolve: {
-      offerSingleTickets: OfferSingleTicketResolver,
-      offerSeasonTickets: OfferSeasonTicketResolver,
-      offerCommuterPass: OfferCommuterPassResolver
-    }
   },
   {
     path: 'login',

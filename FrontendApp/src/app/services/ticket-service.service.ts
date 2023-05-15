@@ -5,6 +5,7 @@ import {TicketInfo} from "../models/ticket-info";
 import {environment} from "../../environments/environment";
 
 const host = environment.backendEndpoint;
+const ticketApiPrefix = '/tickets'
 const infoApiPrefix = '/tickets/ticketinfo';
 const offerApiPrefix = '/tickets/offer';
 
@@ -45,5 +46,13 @@ export class TicketServiceService {
         "userId": userId
       }
     ).subscribe();
+  }
+
+  isTicketActive(ticketId: number, tramId: string="null"): Observable<boolean> {
+    return this.http.get<boolean>(host + ticketApiPrefix + "/" + ticketId + "/verify/" + tramId);
+  }
+
+  activeTicket(ticketId: number, tramId: string="null") {
+    return this.http.put(host + ticketApiPrefix + "/" + ticketId + "/activate/" + tramId, {}).subscribe();
   }
 }
