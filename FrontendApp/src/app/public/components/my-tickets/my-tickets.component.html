@@ -1,7 +1,8 @@
 <div class="container">
   <div class="row row-cols-1 row-cols-md-4 mt-4">
     <div  *ngFor="let info of ticketInfos" class="col mt-2">
-      <div class="card">
+      <div class="card" [ngStyle]="info.active?{'background-color':'#e8fbe8'} : {}">
+        <!-- I know, I know, really ugly solution but works -->
         <div class="card-body text-center">
           <h6 class="card-subtitle mb-2 text-body-secondary">{{ info.concession }}</h6>
           <h2 class="card-title">{{ enumSeasonCommuter[info.type] }}</h2>
