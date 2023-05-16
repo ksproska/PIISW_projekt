@@ -3,8 +3,10 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {TicketInfo} from "../models/ticket-info";
 import {environment} from "../../environments/environment";
+import {VerificationMessage} from "../models/verification-message";
 
 const host = environment.backendEndpoint;
+const ticketApiPrefix = '/tickets'
 const infoApiPrefix = '/tickets/ticketinfo';
 const offerApiPrefix = '/tickets/offer';
 
@@ -23,8 +25,7 @@ export class TicketServiceService {
     return this.http.put(host + offerApiPrefix + "/singleticket",
       {
         "offerId": offerId,
-        "userId": userId,
-        "tramId": tramId
+        "userId": userId
       }
     ).subscribe();
   }
@@ -45,5 +46,19 @@ export class TicketServiceService {
         "userId": userId
       }
     ).subscribe();
+  }
+
+  isTicketActive(ticketId: any, tramId: any="null"): Observable<VerificationMessage> {
+    if (tramId == "") {
+      tramId = "null"
+    }
+    return this.http.get<VerificationMessage>(host + ticketApiPrefix + "/" + ticketId + "/verify/" + tramId);
+  }
+
+  activeTicket(ticketId: number, tramId: string="null") {
+    if (tramId == "") {
+      tramId = "null"
+    }
+    return this.http.put(host + ticketApiPrefix + "/" + ticketId + "/activate/" + tramId, {}).subscribe();
   }
 }

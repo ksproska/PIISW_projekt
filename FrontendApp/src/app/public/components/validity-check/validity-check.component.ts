@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
+import {TicketServiceService} from "../../../services/ticket-service.service";
 
 @Component({
   selector: 'app-validity-check',
@@ -8,7 +9,7 @@ import {FormBuilder, Validators} from "@angular/forms";
 })
 export class ValidityCheckComponent {
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private service: TicketServiceService) {
   }
 
   ticketValidity: string = ""
@@ -20,7 +21,12 @@ export class ValidityCheckComponent {
 
 
   checkValidity(): void{
-    //TODO: w subscribe na next przypisanie wartości do ticketValidity
+    let tramId = this.checkForm.controls['tramID'].value;
+    let isActive = this.service.isTicketActive(
+      this.checkForm.controls['ticketID'].value,
+      tramId
+    )
+    isActive.subscribe(res => this.ticketValidity = res.message)
   }
 
 }

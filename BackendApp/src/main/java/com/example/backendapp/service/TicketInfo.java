@@ -26,7 +26,8 @@ public class TicketInfo {
         price = ticket.getPrice();
         concession = ticket.getConcession();
         type = ticket.type();
-        isActive = ticket.verifyTicket(null, Calendar.getInstance().getTime());
+        var timeNow = Calendar.getInstance().getTime();
+        isActive = ticket.isActive(timeNow);
     }
 
     public TicketInfo() {}

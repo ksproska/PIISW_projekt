@@ -24,9 +24,8 @@
             Purchase
           </button>
           <div class="card-text d-flex justify-content-end">
-            Price:
             <span class="ms-2 text-primary" *ngIf="selectedSeasonTicket">
-              {{selectedSeasonTicket.price}} PLN
+              {{selectedSeasonTicket.price | currency:'PLN'}}
             </span>
           </div>
         </div>
@@ -50,9 +49,8 @@
             Purchase
           </button>
           <div class="card-text d-flex justify-content-end ">
-            Price:
             <span class="ms-2 text-primary" *ngIf="selectedCommuterTicket">
-              {{selectedCommuterTicket.price}} PLN
+              {{selectedCommuterTicket.price | currency:'PLN'}}
             </span>
           </div>
         </div>
@@ -64,14 +62,13 @@
         <h3 class="card-title"> Single ticket </h3>
         <p class="card-text"> Select ticket duration for more details: </p>
         <div class="d-flex justify-content-between fs-1 mt-3">
-          <button type="button" class="btn btn-outline-primary fs-3" >
+          <button (click)="purchaseSingleTicket()" type="button" class="btn btn-outline-primary fs-3" >
             Purchase
           </button>
           <div class="card-text d-flex justify-content-end ">
-            Price:
             <span class="ms-2 text-primary">
               <span class="ms-2 text-primary" *ngIf="selectedSingleTicket">
-                {{selectedSingleTicket.price}} PLN
+                {{selectedSingleTicket.price | currency:'PLN'}}
               </span>
             </span>
           </div>

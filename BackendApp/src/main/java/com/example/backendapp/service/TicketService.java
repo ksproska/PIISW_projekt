@@ -17,10 +17,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -36,12 +33,17 @@ public class TicketService {
 
     public Optional<Ticket> getTicketById(long id) { return ticketRepository.findById(id); }
 
-    public boolean verifyTicket(long id, String tramId) throws NoSuchElementException
-    {
-        // TODO validation
-        var ticket = ticketRepository.findById(id);
-        if (ticket.isEmpty()) throw new NoSuchElementException("Ticket with id '" + id + "' not found");
-        return ticket.get().verifyTicket(tramId, Calendar.getInstance().getTime());
+    public String isActiveForTram(long ticketId, String tramId) {
+        var ticket = ticketRepository.findById(ticketId);
+        if (ticket.isEmpty()) return "NOT found";
+        var timeNow = Calendar.getInstance().getTime();
+        if (ticket.get().getClipTime() == null) {
+            return "NOT clipped";
+        }
+        if (ticket.get().isActiveForTram(tramId, timeNow)) {
+            return "valid";
+        }
+        return "NOT valid";
     }
 
     public List<TicketInfo> getTicketInfo(Long userId) {
@@ -50,7 +52,7 @@ public class TicketService {
         return ticketInfos;
     }
 
-    public void saveSingleTicket(CreateSingleTicketRequest request) {
+    public void saveSingleTicket(CreateTicketRequest request) {
         Passenger user = (Passenger) userRepository.findById(request.userId()).orElse(null);
         OfferSingleTicket offer = (OfferSingleTicket) offerRepository.findById(request.offerId()).orElse(null);
 
@@ -58,8 +60,6 @@ public class TicketService {
         ticket.setPrice(offer.getPrice());
         ticket.setConcession(offer.getConcession());
         ticket.setOwner(user);
-        ticket.setClipTime(Calendar.getInstance().getTime());
-        ticket.setTramId(request.tramId());
 
         ticketRepository.save(ticket);
     }
@@ -86,9 +86,19 @@ public class TicketService {
         ticket.setPrice(offer.getPrice());
         ticket.setConcession(offer.getConcession());
         ticket.setOwner(user);
-        ticket.setClipTime(Calendar.getInstance().getTime());
         ticket.setValidityLengthInMinutes(offer.getValidityLengthInMinutes());
 
         ticketRepository.save(ticket);
+    }
+
+    public boolean activateTicket(Long ticketId, String tramId) {
+        var ticket = ticketRepository.findById(ticketId).orElse(null);
+        Date timeNow = Calendar.getInstance().getTime();
+        if (!ticket.isActiveForTram(tramId, timeNow) && ticket.getClipTime() == null) {
+            ticket.setClipTime(timeNow);
+            ticketRepository.save(ticket);
+            return true;
+        }
+        return false;
     }
 }
