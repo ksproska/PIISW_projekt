@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {TicketInfo} from "../../../models/ticket-info";
 import {SeasonCommuterTicketDuration} from "../../../models/offer-season-ticket";
-import {tick} from "@angular/core/testing";
+import {TicketServiceService} from "../../../services/ticket-service.service";
 
 @Component({
   selector: 'app-my-tickets',
@@ -13,7 +13,9 @@ export class MyTicketsComponent {
   ticketInfos: TicketInfo[]
   enumSeasonCommuter = <any>SeasonCommuterTicketDuration
 
-  constructor(private readonly activatedRoute: ActivatedRoute) {
+  constructor(private readonly activatedRoute: ActivatedRoute,
+              private readonly service: TicketServiceService
+  ) {
     this.ticketInfos = this.activatedRoute.snapshot.data['ticketInfos'];
     console.log(this.ticketInfos)
   }
@@ -27,5 +29,9 @@ export class MyTicketsComponent {
     if(type == "SINGLE")
       return 'SINGLE'
     return ""
+  }
+
+  clip(ticketId: number) {
+    this.service.activeTicket(ticketId) // TODO: tramId required for SingleTicket
   }
 }

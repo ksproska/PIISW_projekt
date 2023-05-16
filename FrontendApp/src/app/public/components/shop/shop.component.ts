@@ -104,6 +104,11 @@ export class ShopComponent implements OnInit, OnDestroy {
     return this.ticketForm.controls['commuterTicketLength']
   }
 
+  purchaseSingleTicket() {
+    // @ts-ignore
+    this.service.putSingleTicket(this.selectedSingleTicket.id, 101); // TODO remove userId
+  }
+
   purchaseSeasonTicket() {
     // @ts-ignore
     this.service.putSeasonTicket(this.selectedSeasonTicket.id, 101); // TODO remove userId

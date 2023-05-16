@@ -1,26 +1,29 @@
 <div class="container">
   <div class="row row-cols-1 row-cols-md-4 mt-4">
     <div  *ngFor="let info of ticketInfos" class="col mt-2">
-      <div class="card" [ngStyle]="info.active?{'background-color':'#e8fbe8'} : {}">
+      <div class="card" [ngStyle]="info.active?{'background-color':'#e8fbe8'} : {} && !info.datetime?{'background-color':'#E8F6FBFF'} : {}">
         <!-- I know, I know, really ugly solution but works -->
         <div class="card-body text-center">
           <h6 class="card-subtitle mb-2 text-body-secondary">{{ info.concession }}</h6>
-          <h2 class="card-title">{{ enumSeasonCommuter[info.type] }}</h2>
+          <h4 class="card-title">{{ enumSeasonCommuter[info.type] }}</h4>
           <p *ngIf="info.datetime" class="card-text">
             Since: {{ info.datetime | date:'dd MM YYYY HH:mm:ss' }}
           </p>
           <p class="card-text">
-            Price: {{ info.price }} PLN
+            Price: {{ info.price | currency:'PLN' }}
           </p>
           <p class="card-text">
             Validity: <span *ngIf="info.active"> <i class="bi bi-check-square-fill text-success"></i> </span><span *ngIf="!info.active"> <i class="bi bi-exclamation-square text-danger"></i> </span>
+          </p>
+          <p class="card-text">
+            Ticket id: {{ info.ticketId }}
           </p>
           <div *ngIf="classify(info.type) == 'SINGLE' && !info.datetime" class="form-floating mb-3">
             <input type="text" class="form-control" id="tramID" placeholder=" ">
             <label for="tramID">Enter your tram number</label>
           </div>
-          <button *ngIf="info.datetime" class="btn btn-outline-primary" [disabled]="!info.active">Show for inspection</button>
-          <button *ngIf="!info.datetime" class="btn btn-outline-primary" [disabled]="info.active">Clip</button>
+<!--          <button *ngIf="info.datetime" class="btn btn-outline-primary" [disabled]="!info.active">Show for inspection</button>-->
+          <button *ngIf="!info.datetime" class="btn btn-outline-primary" [disabled]="info.active" (click)="clip(info.ticketId)">Clip</button>
         </div>
       </div>
     </div>

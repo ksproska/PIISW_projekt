@@ -19,14 +19,8 @@ public class TicketController {
     private TicketService ticketService;
 
     @GetMapping("/{ticketId}/verify/{tramId}")
-    public ResponseEntity<Object> verifyTicket(@PathVariable long ticketId, @PathVariable String tramId) {
-        try {
-            var result = ticketService.isActiveForTram(ticketId, tramId);
-            return ResponseEntity.ok(result);
-        }
-        catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public VerificationMessage verifyTicket(@PathVariable long ticketId, @PathVariable String tramId) {
+        return new VerificationMessage(ticketService.isActiveForTram(ticketId, tramId));
     }
     @PutMapping("/{ticketId}/activate/{tramId}")
     public void activateTicket(@PathVariable long ticketId, @PathVariable String tramId) {
@@ -42,7 +36,7 @@ public class TicketController {
     }
 
     @PutMapping("/offer/singleticket")
-    public void putSingleTicketFromOfferForUserId(@RequestBody CreateSingleTicketRequest request) {
+    public void putSingleTicketFromOfferForUserId(@RequestBody CreateTicketRequest request) {
         ticketService.saveSingleTicket(request);
     }
     @PutMapping("/offer/seasonticket")

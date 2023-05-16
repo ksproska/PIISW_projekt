@@ -15,7 +15,8 @@ public class SingleTicket extends Ticket{
 
     @Override
     public boolean isActiveForTram(String tramId, Date dateOfTicketVerification) {
-        return  this.tramId.equalsIgnoreCase(tramId) && isActive(dateOfTicketVerification);
+        if (tramId == null) return false;
+        return tramId.equalsIgnoreCase(this.tramId) && isActive(dateOfTicketVerification);
     }
 
     @Override

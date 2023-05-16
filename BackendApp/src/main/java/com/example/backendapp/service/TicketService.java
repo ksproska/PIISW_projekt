@@ -33,12 +33,17 @@ public class TicketService {
 
     public Optional<Ticket> getTicketById(long id) { return ticketRepository.findById(id); }
 
-    public boolean isActiveForTram(long ticketId, String tramId) throws NoSuchElementException {
-        // TODO validation
+    public String isActiveForTram(long ticketId, String tramId) {
         var ticket = ticketRepository.findById(ticketId);
-        if (ticket.isEmpty()) throw new NoSuchElementException("Ticket with ticketId '" + ticketId + "' not found");
+        if (ticket.isEmpty()) return "NOT found";
         var timeNow = Calendar.getInstance().getTime();
-        return ticket.get().isActiveForTram(tramId, timeNow);
+        if (ticket.get().getClipTime() == null) {
+            return "NOT clipped";
+        }
+        if (ticket.get().isActiveForTram(tramId, timeNow)) {
+            return "valid";
+        }
+        return "NOT valid";
     }
 
     public List<TicketInfo> getTicketInfo(Long userId) {
@@ -47,7 +52,7 @@ public class TicketService {
         return ticketInfos;
     }
 
-    public void saveSingleTicket(CreateSingleTicketRequest request) {
+    public void saveSingleTicket(CreateTicketRequest request) {
         Passenger user = (Passenger) userRepository.findById(request.userId()).orElse(null);
         OfferSingleTicket offer = (OfferSingleTicket) offerRepository.findById(request.offerId()).orElse(null);
 
@@ -55,7 +60,6 @@ public class TicketService {
         ticket.setPrice(offer.getPrice());
         ticket.setConcession(offer.getConcession());
         ticket.setOwner(user);
-        ticket.setTramId(request.tramId());
 
         ticketRepository.save(ticket);
     }
