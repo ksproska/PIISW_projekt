@@ -4,17 +4,22 @@
       <div class="card">
         <div class="card-body text-center">
           <h6 class="card-subtitle mb-2 text-body-secondary">{{ info.concession }}</h6>
-          <h2 class="card-title">{{ info.type }}</h2>
-          <p class="card-text">
-            Since: {{ info.datetime }}
+          <h2 class="card-title">{{ enumSeasonCommuter[info.type] }}</h2>
+          <p *ngIf="info.datetime" class="card-text">
+            Since: {{ info.datetime | date:'dd MM YYYY HH:mm:ss' }}
           </p>
           <p class="card-text">
-            Price: {{ info.price }}
+            Price: {{ info.price }} PLN
           </p>
           <p class="card-text">
-            Validity: {{ info.active }}
+            Validity: <span *ngIf="info.active"> <i class="bi bi-check-square-fill text-success"></i> </span><span *ngIf="!info.active"> <i class="bi bi-exclamation-square text-danger"></i> </span>
           </p>
-          <button class="btn btn-outline-primary">Show for inspection</button>
+          <div *ngIf="classify(info.type) == 'SINGLE' && !info.datetime" class="form-floating mb-3">
+            <input type="text" class="form-control" id="tramID" placeholder=" ">
+            <label for="tramID">Enter your tram number</label>
+          </div>
+          <button *ngIf="info.datetime" class="btn btn-outline-primary" [disabled]="!info.active">Show for inspection</button>
+          <button *ngIf="!info.datetime" class="btn btn-outline-primary" [disabled]="info.active">Clip</button>
         </div>
       </div>
     </div>

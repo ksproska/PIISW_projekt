@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {OfferSingleTicket} from "../../../models/offer-single-ticket";
-import {OfferSeasonTicket, SeasonTicketDuration} from "../../../models/offer-season-ticket";
-import {CommuterPassDuration, OfferCommuterPass} from "../../../models/offer-commuter-pass";
+import {OfferSeasonTicket, SeasonCommuterTicketDuration} from "../../../models/offer-season-ticket";
+import {OfferCommuterPass} from "../../../models/offer-commuter-pass";
 import {ActivatedRoute} from "@angular/router";
 import {FormBuilder} from "@angular/forms";
 import {Subscription} from "rxjs";
@@ -14,6 +14,7 @@ import {TicketServiceService} from "../../../services/ticket-service.service";
 })
 export class ShopComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
+
   constructor(private activatedRoute: ActivatedRoute,
               private formBuilder: FormBuilder,
               private readonly service: TicketServiceService
@@ -21,7 +22,6 @@ export class ShopComponent implements OnInit, OnDestroy {
     this.offerSingleTickets = this.activatedRoute.snapshot.data['offerSingleTickets'];
     this.offerSeasonTickets = this.activatedRoute.snapshot.data['offerSeasonTickets'];
     this.offerCommuterPass = this.activatedRoute.snapshot.data['offerCommuterPass'];
-    console.log(this.offerCommuterPass)
   }
 
   private readonly offerSingleTickets: OfferSingleTicket[]
@@ -30,10 +30,7 @@ export class ShopComponent implements OnInit, OnDestroy {
 
   private readonly offerCommuterPass: OfferCommuterPass[]
 
-  enumSeason = <any>SeasonTicketDuration
-  enumCommuter = <any>CommuterPassDuration
-
-  singleTickets!: OfferSingleTicket[]
+  enumSeasonCommuter = <any>SeasonCommuterTicketDuration
 
   seasonTickets: OfferSeasonTicket[] | undefined
 
@@ -80,8 +77,9 @@ export class ShopComponent implements OnInit, OnDestroy {
 
     this.seasonTickets = filterByConcessionType(this.offerSeasonTickets);
     this.commuterPass = filterByConcessionType(this.offerCommuterPass);
-    this.singleTickets = filterByConcessionType(this.offerSingleTickets);
+    this.selectedSingleTicket = filterByConcessionType(this.offerSingleTickets).pop();
   }
+
   filterByLengthSeason(): void {
     this.selectedSeasonTicket = this.seasonTickets?.find(obj => {
       return obj.validityLengthInDays === this.seasonTicketLength.value
@@ -94,15 +92,15 @@ export class ShopComponent implements OnInit, OnDestroy {
     })
   }
 
-  get concession(){
+  get concession() {
     return this.ticketForm.controls['concession']
   }
 
-  get seasonTicketLength(){
+  get seasonTicketLength() {
     return this.ticketForm.controls['seasonTicketLength']
   }
 
-  get commuterTicketLength(){
+  get commuterTicketLength() {
     return this.ticketForm.controls['commuterTicketLength']
   }
 

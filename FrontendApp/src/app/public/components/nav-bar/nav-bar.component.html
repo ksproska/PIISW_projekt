@@ -15,6 +15,7 @@
         <div  *ngIf="true; then loggedIn else notLoggedIn">
         </div>
         <ng-template #loggedIn>
+          <a [routerLink]="['validity']" class="nav-link active">Validity check</a>
           <a [routerLink]="['shop']" class="nav-link active">Shop</a>
           <a [routerLink]="['my-tickets']" class="nav-link active" routerLink="">MyTickets</a>
           <a (click)="logout()" class="nav-link active">Logout</a>

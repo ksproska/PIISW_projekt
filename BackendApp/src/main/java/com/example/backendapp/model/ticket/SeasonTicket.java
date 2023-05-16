@@ -29,6 +29,6 @@ public class SeasonTicket extends Ticket{
 
     @Override
     public String type() {
-        return validityLengthInDays.name().toLowerCase() + " (" + validityLengthInDays.getValue() + ")";
+        return validityLengthInDays.name();
     }
 }

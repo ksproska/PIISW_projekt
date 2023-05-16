@@ -19,6 +19,9 @@ public class CommuterPass extends Ticket {
     public boolean verifyTicket(String tramId, Date dateOfTicketVerification)
     {
         Calendar calendar = Calendar.getInstance();
+        if(this.getClipTime() == null)
+            return false;
+
         calendar.setTime(this.getClipTime());
         calendar.add(Calendar.MINUTE, this.validityLengthInMinutes.getValue());
         var dateLimit = calendar.getTime();
@@ -29,6 +32,6 @@ public class CommuterPass extends Ticket {
 
     @Override
     public String type() {
-        return validityLengthInMinutes.name().toLowerCase() + " (" + validityLengthInMinutes.getValue() + ")";
+        return validityLengthInMinutes.name();
     }
 }

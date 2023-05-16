@@ -9,6 +9,7 @@ import {OfferCommuterPassResolver} from "@resolver/offer-commuter-pass.resolver"
 import {ShopComponent} from "./public/components/shop/shop.component";
 import {MyTicketsComponent} from "./public/components/my-tickets/my-tickets.component";
 import {TicketResolver} from "@resolver/ticket.resolver";
+import {ValidityCheckComponent} from "./public/components/validity-check/validity-check.component";
 
 const routes: Routes = [
   {
@@ -48,6 +49,10 @@ const routes: Routes = [
     resolve: {
       ticketInfos: TicketResolver
     }
+  },
+  {
+    path: 'validity',
+    component: ValidityCheckComponent,
   },
 ];
 

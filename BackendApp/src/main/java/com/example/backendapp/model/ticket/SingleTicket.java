@@ -23,6 +23,6 @@ public class SingleTicket extends Ticket{
 
     @Override
     public String type() {
-        return "single ticket";
+        return "SINGLE";
     }
 }
