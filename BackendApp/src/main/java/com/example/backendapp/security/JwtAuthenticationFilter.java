@@ -1,6 +1,7 @@
 package com.example.backendapp.security;
 
 import com.example.backendapp.service.UserService;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,6 +9,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,19 +46,28 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        jwt = authHeader.substring(7);
-        username = jwtService.extractUsername(jwt);
-
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null)
+        try
         {
-            var userDetails = userService.getUserByUsername(username);
-            if (jwtService.isTokenValid(jwt, userDetails))
-            {
-                log.info("Request attached to user: '{}' with role '{}'", userDetails.getUsername(), userDetails.getAuthorities().stream().findFirst().get());
-                var authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authToken);
+            jwt = authHeader.substring(7);
+            username = jwtService.extractUsername(jwt);
+
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                var userDetails = userService.getUserByUsername(username);
+                if (jwtService.isTokenValid(jwt, userDetails)) {
+                    log.info("Request attached to user: '{}' with role '{}'", userDetails.getUsername(), userDetails.getAuthorities().stream().findFirst().get());
+                    var authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                }
             }
+        }
+        catch (ExpiredJwtException e)
+        {
+            log.warn("Exception: '{}' -> {}", e.getClass().getName(), e.getMessage());
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            response.getWriter().write(e.getMessage());
+            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+            return;
         }
         filterChain.doFilter(request, response);
     }
