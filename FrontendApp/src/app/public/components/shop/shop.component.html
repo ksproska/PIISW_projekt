@@ -1,5 +1,6 @@
 <div class="container mt-5">
   <form [formGroup]="ticketForm">
+
     <div class="d-flex justify-content-center">
       <span class="h5 mt-3 me-2 text-secondary"><i class="bi bi-currency-dollar"></i> Normal</span>
       <label class="switch">
@@ -8,6 +9,11 @@
       </label>
       <span class="h5 mt-3 ms-2 text-primary"><i class="bi bi-piggy-bank-fill"></i> Reduced</span>
     </div>
+
+    <div *ngIf="message" class="offset-md-2 col-md-8 col-12 alert alert-success my-2" role="alert">
+      {{message}}
+    </div>
+
     <div class="offset-md-2 col-md-8 col-12 card bg-white shadow mt-3">
       <div class="card-body">
         <h3 class="card-title"> Seasonal ticket </h3>
@@ -75,8 +81,7 @@
         </div>
       </div>
     </div>
-
-
   </form>
 </div>
+
 

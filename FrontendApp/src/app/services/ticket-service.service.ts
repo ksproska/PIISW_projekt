@@ -27,7 +27,7 @@ export class TicketServiceService {
         "offerId": offerId,
         "userId": userId
       }
-    ).subscribe();
+    );
   }
 
   putSeasonTicket(offerId: number, userId: number) {
@@ -36,7 +36,7 @@ export class TicketServiceService {
         "offerId": offerId,
         "userId": userId
       }
-    ).subscribe();
+    );
   }
 
   putCommuterPass(offerId: number, userId: number) {
@@ -45,7 +45,7 @@ export class TicketServiceService {
         "offerId": offerId,
         "userId": userId
       }
-    ).subscribe();
+    );
   }
 
   isTicketActive(ticketId: any, tramId: any="null"): Observable<VerificationMessage> {
@@ -59,6 +59,6 @@ export class TicketServiceService {
     if (tramId == "") {
       tramId = "null"
     }
-    return this.http.put(host + ticketApiPrefix + "/" + ticketId + "/activate/" + tramId, {}).subscribe();
+    return this.http.put(host + ticketApiPrefix + "/" + ticketId + "/activate/" + tramId, {});
   }
 }
