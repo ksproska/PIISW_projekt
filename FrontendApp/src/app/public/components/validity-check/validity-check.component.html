@@ -1,0 +1,22 @@
+<div class="bg-light rounded-1 shadow border container text-center mt-5 col-12 col-md-6">
+  <div class="d-flex justify-content-center align-items-center"  [ngStyle]="ticketValidity=='valid'?{'background-color':'#e8fbe8'} : {}">
+    <div class="col-12 col-md-9 col-lg-7 col-xl-8">
+      <form class="mt-3" [formGroup]="checkForm" (ngSubmit)="checkValidity()">
+        <h2> Enter data to check validity: </h2>
+        <div class="form-floating mt-4">
+          <input type="text" id="ticketID" formControlName="ticketID" class="form-control h2" placeholder="ticketID">
+          <label for="ticketID">Ticket ID</label>
+        </div>
+        <div class="form-floating">
+          <input type="text" id="tramID" formControlName="tramID" class="form-control h2"
+                 placeholder="tramID">
+          <label for="tramID">Tram ID (Optional)</label>
+        </div>
+        <div class="form-floating rounded err-color mt-2 fs-4">
+          {{ticketValidity}}
+        </div>
+        <button type="submit" class="shadow btn btn-outline-primary my-3 w-50 fs-4">Check</button>
+      </form>
+    </div>
+  </div>
+</div>

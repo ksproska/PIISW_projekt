@@ -12,6 +12,7 @@ import { NavBarComponent } from './public/components/nav-bar/nav-bar.component';
 import {HttpClientModule} from "@angular/common/http";
 import { ShopComponent } from './public/components/shop/shop.component';
 import { MyTicketsComponent } from './public/components/my-tickets/my-tickets.component';
+import { ValidityCheckComponent } from './public/components/validity-check/validity-check.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { MyTicketsComponent } from './public/components/my-tickets/my-tickets.co
     HomeComponent,
     NavBarComponent,
     ShopComponent,
-    MyTicketsComponent
+    MyTicketsComponent,
+    ValidityCheckComponent
   ],
   imports: [
     BrowserModule,

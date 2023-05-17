@@ -16,18 +16,17 @@
           <option
             *ngFor="let ticket of seasonTickets"
             [value]="ticket.validityLengthInDays">
-            {{ enumSeason[ticket.validityLengthInDays]}}
+            {{ enumSeasonCommuter[ticket.validityLengthInDays]}}
           </option>
         </select>
         <div class="d-flex justify-content-between fs-1 mt-3">
-          <button type="button" class="btn btn-outline-primary fs-3" >
+          <button (click)="purchaseSeasonTicket()" type="button" class="btn btn-outline-primary fs-3" >
             Purchase
           </button>
-          <div class="card-text d-flex justify-content-end ">
-            Price:
+          <div class="card-text d-flex justify-content-end">
             <span class="ms-2 text-primary" *ngIf="selectedSeasonTicket">
-            {{selectedSeasonTicket.price}} PLN
-          </span>
+              {{selectedSeasonTicket.price | currency:'PLN'}}
+            </span>
           </div>
         </div>
 
@@ -42,18 +41,17 @@
           <option
             *ngFor="let ticket of commuterPass"
             [value]="ticket.validityLengthInMinutes">
-            {{ enumCommuter[ticket.validityLengthInMinutes]}}
+            {{ enumSeasonCommuter[ticket.validityLengthInMinutes]}}
           </option>
         </select>
         <div class="d-flex justify-content-between fs-1 mt-3">
-          <button type="button" class="btn btn-outline-primary fs-3" >
+          <button (click)="purchaseCommuterPass()" type="button" class="btn btn-outline-primary fs-3" >
             Purchase
           </button>
           <div class="card-text d-flex justify-content-end ">
-            Price:
             <span class="ms-2 text-primary" *ngIf="selectedCommuterTicket">
-            {{selectedCommuterTicket.price}} PLN
-          </span>
+              {{selectedCommuterTicket.price | currency:'PLN'}}
+            </span>
           </div>
         </div>
       </div>
@@ -63,19 +61,16 @@
       <div class="card-body">
         <h3 class="card-title"> Single ticket </h3>
         <p class="card-text"> Select ticket duration for more details: </p>
-        <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="tramID" placeholder=" " formControlName="tramId">
-          <label for="tramID">Enter your tram number</label>
-        </div>
         <div class="d-flex justify-content-between fs-1 mt-3">
-          <button type="button" class="btn btn-outline-primary fs-3" >
+          <button (click)="purchaseSingleTicket()" type="button" class="btn btn-outline-primary fs-3" >
             Purchase
           </button>
           <div class="card-text d-flex justify-content-end ">
-            Price:
-            <span class="ms-2 text-primary" *ngIf="selectedCommuterTicket">
-            {{selectedCommuterTicket.price}} PLN
-          </span>
+            <span class="ms-2 text-primary">
+              <span class="ms-2 text-primary" *ngIf="selectedSingleTicket">
+                {{selectedSingleTicket.price | currency:'PLN'}}
+              </span>
+            </span>
           </div>
         </div>
       </div>
