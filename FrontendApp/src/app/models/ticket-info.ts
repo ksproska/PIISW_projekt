@@ -5,5 +5,6 @@ export interface TicketInfo {
   price: number;
   concession: string;
   type: string;
+  tramId: string;
   active: boolean;
 }

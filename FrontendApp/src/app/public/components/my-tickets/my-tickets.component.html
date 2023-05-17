@@ -1,5 +1,8 @@
 <div class="container">
-  <div class="row row-cols-1 row-cols-md-4 mt-4">
+  <div *ngIf="errorMsg" class="offset-md-2 col-md-8 col-12 alert alert-danger mt-4" role="alert">
+    You need to put tram id to clip single ticket.
+  </div>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 mt-4">
     <div  *ngFor="let info of ticketInfos" class="col mt-2">
       <div class="card" [ngStyle]="info.active?{'background-color':'#e8fbe8'} : {} && !info.datetime?{'background-color':'#E8F6FBFF'} : {}">
         <!-- I know, I know, really ugly solution but works -->
@@ -18,11 +21,14 @@
           <p class="card-text">
             Validity: <span *ngIf="info.active"> <i class="bi bi-check-square-fill text-success"></i> </span><span *ngIf="!info.active"> <i class="bi bi-exclamation-square text-danger"></i> </span>
           </p>
+          <p *ngIf="info.tramId" class="card-text">
+            Tram: {{ info.tramId }}
+          </p>
           <p class="card-text">
             Ticket id: {{ info.ticketId }}
           </p>
           <div *ngIf="classify(info.type) == 'SINGLE' && !info.datetime" class="form-floating mb-3">
-            <input type="text" class="form-control" id="tramID" placeholder=" ">
+            <input [(ngModel)]="tramID" type="text" class="form-control" id="tramID" placeholder=" ">
             <label for="tramID">Enter your tram number</label>
           </div>
 <!--          <button *ngIf="info.datetime" class="btn btn-outline-primary" [disabled]="!info.active">Show for inspection</button>-->
