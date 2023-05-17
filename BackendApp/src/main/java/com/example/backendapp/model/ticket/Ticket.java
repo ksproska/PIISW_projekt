@@ -40,4 +40,5 @@ public abstract class Ticket {
     public abstract boolean isActiveForTram(String tramId, Date dateOfTicketVerification);
     public abstract boolean isActive(Date dateOfTicketVerification);
     public abstract String type();
+    public abstract Date activeTill();
 }

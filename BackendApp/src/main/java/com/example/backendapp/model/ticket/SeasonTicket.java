@@ -23,10 +23,7 @@ public class SeasonTicket extends Ticket{
     @Override
     public boolean isActive(Date dateOfTicketVerification) {
         if (this.getClipTime() == null) return false;
-        var calendar = Calendar.getInstance();
-        calendar.setTime(this.getClipTime());
-        calendar.add(Calendar.DATE, this.validityLengthInDays.getValue());
-        var dateLimit = calendar.getTime();
+        var dateLimit = activeTill();
 
         return  this.getClipTime().before(dateOfTicketVerification) &&
                 dateOfTicketVerification.before(dateLimit);
@@ -35,5 +32,13 @@ public class SeasonTicket extends Ticket{
     @Override
     public String type() {
         return validityLengthInDays.name();
+    }
+
+    @Override
+    public Date activeTill() {
+        var calendar = Calendar.getInstance();
+        calendar.setTime(this.getClipTime());
+        calendar.add(Calendar.DATE, this.validityLengthInDays.getValue());
+        return calendar.getTime();
     }
 }

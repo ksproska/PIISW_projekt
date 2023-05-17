@@ -23,10 +23,7 @@ public class CommuterPass extends Ticket {
     @Override
     public boolean isActive(Date dateOfTicketVerification) {
         if (this.getClipTime() == null) return false;
-        var calendar = Calendar.getInstance();
-        calendar.setTime(this.getClipTime());
-        calendar.add(Calendar.MINUTE, this.validityLengthInMinutes.getValue());
-        var dateLimit = calendar.getTime();
+        var dateLimit = activeTill();
 
         return  this.getClipTime().before(dateOfTicketVerification) &&
                 dateOfTicketVerification.before(dateLimit);
@@ -35,5 +32,13 @@ public class CommuterPass extends Ticket {
     @Override
     public String type() {
         return validityLengthInMinutes.name();
+    }
+
+    @Override
+    public Date activeTill() {
+        var calendar = Calendar.getInstance();
+        calendar.setTime(this.getClipTime());
+        calendar.add(Calendar.MINUTE, this.validityLengthInMinutes.getValue());
+        return calendar.getTime();
     }
 }

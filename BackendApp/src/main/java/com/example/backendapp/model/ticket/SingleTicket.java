@@ -30,4 +30,9 @@ public class SingleTicket extends Ticket{
     public String type() {
         return "SINGLE";
     }
+
+    @Override
+    public Date activeTill() {
+        return null;
+    }
 }

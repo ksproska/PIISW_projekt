@@ -7,7 +7,10 @@
           <h6 class="card-subtitle mb-2 text-body-secondary">{{ info.concession }}</h6>
           <h4 class="card-title">{{ enumSeasonCommuter[info.type] }}</h4>
           <p *ngIf="info.datetime" class="card-text">
-            Since: {{ info.datetime | date:'dd MM YYYY HH:mm:ss' }}
+            Since: {{ info.datetime | date:'dd.MM.YYYY HH:mm:ss' }}
+          </p>
+          <p *ngIf="info.activeTill" class="card-text">
+            To: {{ info.activeTill | date:'dd.MM.YYYY HH:mm:ss' }}
           </p>
           <p class="card-text">
             Price: {{ info.price | currency:'PLN' }}

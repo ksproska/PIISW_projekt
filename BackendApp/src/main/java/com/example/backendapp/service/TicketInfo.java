@@ -15,6 +15,7 @@ import java.util.Date;
 public class TicketInfo {
     private Long ticketId;
     private Date datetime;
+    private Date activeTill;
     private Double price;
     private Concession concession;
     private String type;
@@ -28,6 +29,7 @@ public class TicketInfo {
         type = ticket.type();
         var timeNow = Calendar.getInstance().getTime();
         isActive = ticket.isActive(timeNow);
+        activeTill = ticket.activeTill();
     }
 
     public TicketInfo() {}
