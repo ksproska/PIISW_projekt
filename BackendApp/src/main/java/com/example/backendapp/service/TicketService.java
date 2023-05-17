@@ -1,7 +1,6 @@
 package com.example.backendapp.service;
 
 import com.example.backendapp.controller.CreateTicketRequest;
-import com.example.backendapp.controller.CreateSingleTicketRequest;
 import com.example.backendapp.model.offer.OfferCommuterPass;
 import com.example.backendapp.model.offer.OfferSeasonTicket;
 import com.example.backendapp.model.offer.OfferSingleTicket;
@@ -47,7 +46,7 @@ public class TicketService {
     }
 
     public List<TicketInfo> getTicketInfo(Long userId) {
-        List<Ticket> tickets = ticketRepository.findAllByOwnerId(userId);
+        List<Ticket> tickets = ticketRepository.findAllByOwnerIdOrderByIdDesc(userId);
         List<TicketInfo> ticketInfos = tickets.stream().map(t -> new TicketInfo(t)).toList();
         return ticketInfos;
     }
@@ -95,7 +94,7 @@ public class TicketService {
         var ticket = ticketRepository.findById(ticketId).orElse(null);
         Date timeNow = Calendar.getInstance().getTime();
         if (!ticket.isActiveForTram(tramId, timeNow) && ticket.getClipTime() == null) {
-            ticket.setClipTime(timeNow);
+            ticket.activeForTram(tramId, timeNow);
             ticketRepository.save(ticket);
             return true;
         }

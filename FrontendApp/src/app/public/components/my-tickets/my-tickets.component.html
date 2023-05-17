@@ -15,6 +15,9 @@
           <p class="card-text">
             Validity: <span *ngIf="info.active"> <i class="bi bi-check-square-fill text-success"></i> </span><span *ngIf="!info.active"> <i class="bi bi-exclamation-square text-danger"></i> </span>
           </p>
+          <p *ngIf="info.tramId" class="card-text">
+            Tram: {{ info.tramId }}
+          </p>
           <p class="card-text">
             Ticket id: {{ info.ticketId }}
           </p>
