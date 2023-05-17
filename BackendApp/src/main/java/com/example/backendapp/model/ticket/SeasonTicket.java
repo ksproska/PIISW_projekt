@@ -41,6 +41,7 @@ public class SeasonTicket extends Ticket{
 
     @Override
     public Date activeTill() {
+        if (this.getClipTime() == null) return null;
         var calendar = Calendar.getInstance();
         calendar.setTime(this.getClipTime());
         calendar.add(Calendar.DATE, this.validityLengthInDays.getValue());
