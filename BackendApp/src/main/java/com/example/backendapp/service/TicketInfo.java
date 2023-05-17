@@ -1,6 +1,7 @@
 package com.example.backendapp.service;
 
 import com.example.backendapp.model.common.Concession;
+import com.example.backendapp.model.ticket.SingleTicket;
 import com.example.backendapp.model.ticket.Ticket;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +19,7 @@ public class TicketInfo {
     private Double price;
     private Concession concession;
     private String type;
+    private String tramId;
     private boolean isActive;
 
     TicketInfo(Ticket ticket) {
@@ -28,6 +30,10 @@ public class TicketInfo {
         type = ticket.type();
         var timeNow = Calendar.getInstance().getTime();
         isActive = ticket.isActive(timeNow);
+
+        if (ticket instanceof SingleTicket singleTicket) {
+            tramId = singleTicket.getTramId();
+        }
     }
 
     public TicketInfo() {}

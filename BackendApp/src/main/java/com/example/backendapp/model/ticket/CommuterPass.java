@@ -21,6 +21,11 @@ public class CommuterPass extends Ticket {
     }
 
     @Override
+    public void activeForTram(String tramId, Date dateOfActivation) {
+        setClipTime(dateOfActivation);
+    }
+
+    @Override
     public boolean isActive(Date dateOfTicketVerification) {
         if (this.getClipTime() == null) return false;
         var calendar = Calendar.getInstance();
