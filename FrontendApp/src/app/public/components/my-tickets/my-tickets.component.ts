@@ -3,7 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {TicketInfo} from "../../../models/ticket-info";
 import {SeasonCommuterTicketDuration} from "../../../models/offer-season-ticket";
 import {TicketServiceService} from "../../../services/ticket-service.service";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-my-tickets',
@@ -13,25 +13,29 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 export class MyTicketsComponent implements OnInit{
   ticketInfos: TicketInfo[]
   enumSeasonCommuter = <any>SeasonCommuterTicketDuration
-  tramForm?: FormGroup
-  tramID?: string
+  ticketForm: FormGroup
   errorMsg: boolean = false
   constructor(private readonly activatedRoute: ActivatedRoute,
               private readonly service: TicketServiceService,
+              private fb: FormBuilder
   ) {
     this.ticketInfos = this.activatedRoute.snapshot.data['ticketInfos'];
-    console.log(this.ticketInfos)
+    this.ticketForm = this.fb.group({
+      tickets: this.fb.array([])
+    });
   }
 
   ngOnInit(): void {
-    let singleTickets = this.ticketInfos.filter(obj => {
-      return obj.type == 'SINGLE'
-    })
-
-    for(let ticket of singleTickets)
-      this.tramForm?.addControl('ticket'+ticket.ticketId, new FormControl('', Validators.required))
+    this.initializeFormArray()
   }
-
+  initializeFormArray(): void {
+    const ticketsArray = this.ticketForm.get('tickets') as FormArray;
+    this.ticketInfos.forEach(() => {
+      ticketsArray.push(this.fb.group({
+        tramId: ['', {updateOn: 'change'}]
+      }))
+    });
+  }
   classify(type: string): string{
     if(type == "WEEK" || type ==  "MONTH" || type ==  "SEMESTER" || type ==  "YEAR")
       return 'SEASON'
@@ -42,16 +46,19 @@ export class MyTicketsComponent implements OnInit{
     return ""
   }
 
-  clip(ticketId: number) {
-    let ticket = this.ticketInfos.find(obj => {
+  clip(ticketId: number, index: number) {
+    const ticket = this.ticketInfos.find(obj => {
       return obj.ticketId == ticketId
     })
-    if(ticket?.type == 'SINGLE' && this.tramID == null) {
+
+    const tramID = this.ticketForm.value.tickets[index].tramId;
+
+    if(ticket?.type == 'SINGLE' && tramID == null) {
       this.errorMsg = true
       return
     }
     this.errorMsg = false
-    this.service.activeTicket(ticketId,this.tramID).subscribe({
+    this.service.activeTicket(ticketId,tramID).subscribe({
       complete: () => window.location.reload()
     })
   }
