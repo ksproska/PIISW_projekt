@@ -21,12 +21,14 @@ public class SeasonTicket extends Ticket{
     }
 
     @Override
+    public void activeForTram(String tramId, Date dateOfActivation) {
+        setClipTime(dateOfActivation);
+    }
+
+    @Override
     public boolean isActive(Date dateOfTicketVerification) {
         if (this.getClipTime() == null) return false;
-        var calendar = Calendar.getInstance();
-        calendar.setTime(this.getClipTime());
-        calendar.add(Calendar.DATE, this.validityLengthInDays.getValue());
-        var dateLimit = calendar.getTime();
+        var dateLimit = activeTill();
 
         return  this.getClipTime().before(dateOfTicketVerification) &&
                 dateOfTicketVerification.before(dateLimit);
@@ -35,5 +37,14 @@ public class SeasonTicket extends Ticket{
     @Override
     public String type() {
         return validityLengthInDays.name();
+    }
+
+    @Override
+    public Date activeTill() {
+        if (this.getClipTime() == null) return null;
+        var calendar = Calendar.getInstance();
+        calendar.setTime(this.getClipTime());
+        calendar.add(Calendar.DATE, this.validityLengthInDays.getValue());
+        return calendar.getTime();
     }
 }

@@ -38,6 +38,8 @@ public abstract class Ticket {
     private User owner;
 
     public abstract boolean isActiveForTram(String tramId, Date dateOfTicketVerification);
+    public abstract void activeForTram(String tramId, Date dateOfActivation);
     public abstract boolean isActive(Date dateOfTicketVerification);
     public abstract String type();
+    public abstract Date activeTill();
 }

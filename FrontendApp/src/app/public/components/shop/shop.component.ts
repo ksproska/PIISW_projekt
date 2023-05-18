@@ -45,6 +45,8 @@ export class ShopComponent implements OnInit, OnDestroy {
     tramId: [''],
   });
 
+  message: string = ''
+
   ngOnInit(): void {
     this.subscriptions.push(
       this.concession.valueChanges.subscribe({
@@ -106,16 +108,25 @@ export class ShopComponent implements OnInit, OnDestroy {
 
   purchaseSingleTicket() {
     // @ts-ignore
-    this.service.putSingleTicket(this.selectedSingleTicket.id, 101); // TODO remove userId
+    this.service.putSingleTicket(this.selectedSingleTicket.id, 101).subscribe({
+      complete: () => this.message = "Purchase successful. You bought single ticket for " + this.selectedSingleTicket?.price + " PLN."
+    }); // TODO remove userId
   }
 
   purchaseSeasonTicket() {
     // @ts-ignore
-    this.service.putSeasonTicket(this.selectedSeasonTicket.id, 101); // TODO remove userId
+    this.service.putSeasonTicket(this.selectedSeasonTicket.id, 101).subscribe({
+      complete: () => this.message = "Purchase successful. You bought season ticket for " + this.selectedSeasonTicket?.price + " PLN." +
+        "Ticket validity " + this.enumSeasonCommuter[this.selectedSeasonTicket!.validityLengthInDays]
+
+    }); // TODO remove userId
   }
 
   purchaseCommuterPass() {
     // @ts-ignore
-    this.service.putCommuterPass(this.selectedCommuterTicket.id, 101); // TODO remove userId
+    this.service.putCommuterPass(this.selectedCommuterTicket.id, 101).subscribe({
+      complete: () => this.message = "Purchase successful. You bought season ticket for " + this.selectedCommuterTicket?.price + " PLN." +
+        "Ticket validity " + this.enumSeasonCommuter[this.selectedCommuterTicket!.validityLengthInMinutes]
+    }); // TODO remove userId
   }
 }

@@ -20,6 +20,12 @@ public class SingleTicket extends Ticket{
     }
 
     @Override
+    public void activeForTram(String tramId, Date dateOfActivation) {
+        setClipTime(dateOfActivation);
+        setTramId(tramId);
+    }
+
+    @Override
     public boolean isActive(Date dateOfTicketVerification) {
         if (getClipTime() == null) return false;
         return this.getClipTime().before(dateOfTicketVerification) &&
@@ -29,5 +35,10 @@ public class SingleTicket extends Ticket{
     @Override
     public String type() {
         return "SINGLE";
+    }
+
+    @Override
+    public Date activeTill() {
+        return null;
     }
 }

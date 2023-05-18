@@ -1,6 +1,7 @@
 package com.example.backendapp.service;
 
 import com.example.backendapp.model.common.Concession;
+import com.example.backendapp.model.ticket.SingleTicket;
 import com.example.backendapp.model.ticket.Ticket;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,9 +16,11 @@ import java.util.Date;
 public class TicketInfo {
     private Long ticketId;
     private Date datetime;
+    private Date activeTill;
     private Double price;
     private Concession concession;
     private String type;
+    private String tramId;
     private boolean isActive;
 
     TicketInfo(Ticket ticket) {
@@ -28,6 +31,11 @@ public class TicketInfo {
         type = ticket.type();
         var timeNow = Calendar.getInstance().getTime();
         isActive = ticket.isActive(timeNow);
+
+        if (ticket instanceof SingleTicket singleTicket) {
+            tramId = singleTicket.getTramId();
+        }
+        activeTill = ticket.activeTill();
     }
 
     public TicketInfo() {}
