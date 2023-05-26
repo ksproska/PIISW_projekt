@@ -46,9 +46,9 @@ public class TicketService {
     }
 
     public List<TicketInfo> getTicketInfo(Long userId) {
-        List<Ticket> tickets = ticketRepository.findAllByOwnerIdOrderByIdDesc(userId);
-        List<TicketInfo> ticketInfos = tickets.stream().map(t -> new TicketInfo(t)).toList();
-        return ticketInfos;
+        var user = userRepository.findById(userId).orElseThrow();
+        List<Ticket> tickets = ticketRepository.findAllByOwnerIdOrderByIdDesc(user.getId());
+        return tickets.stream().map(t -> new TicketInfo(t)).toList();
     }
 
     public void saveSingleTicket(CreateTicketRequest request) {
