@@ -38,4 +38,7 @@ public abstract class User implements UserDetails {
     @NotNull
     @Enumerated(EnumType.STRING)
     protected Role role;
+
+    @Version
+    private Integer version;
 }

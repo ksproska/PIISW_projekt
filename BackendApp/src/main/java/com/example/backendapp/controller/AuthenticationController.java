@@ -5,6 +5,7 @@ import com.example.backendapp.service.AuthenticationService;
 import com.example.backendapp.security.requests.AuthenticationRequest;
 import com.example.backendapp.security.requests.RegisterRequest;
 import com.example.backendapp.security.responses.AuthenticationResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,7 @@ public class AuthenticationController
         return ResponseEntity.ok(authService.registerUser(request, Role.USER));
     }
 
+    @SecurityRequirement(name = "Barer Authentication")
     @PostMapping("/ticket-collector/register")
     public ResponseEntity<AuthenticationResponse> registerTicketCollector(@RequestBody RegisterRequest request)
     {

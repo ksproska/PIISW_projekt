@@ -24,4 +24,7 @@ public abstract class Offer {
     private Concession concession;
 
     private Double price;
+
+    @Version
+    private Integer version;
 }

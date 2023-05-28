@@ -2,6 +2,8 @@ package com.example.backendapp.controller;
 
 import com.example.backendapp.service.TicketInfo;
 import com.example.backendapp.service.TicketService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,8 @@ import java.util.NoSuchElementException;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/tickets")
+@SecurityRequirement(name = "Barer Authentication")
+@Tag(name = "Ticket controller", description = "Contains operations available to the logged-in user and the ticket controller")
 public class TicketController {
     @Autowired
     private TicketService ticketService;

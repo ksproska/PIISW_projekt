@@ -4,6 +4,7 @@ import com.example.backendapp.model.offer.OfferCommuterPass;
 import com.example.backendapp.model.offer.OfferSeasonTicket;
 import com.example.backendapp.model.offer.OfferSingleTicket;
 import com.example.backendapp.service.OfferService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping()
+@Tag(name = "Public ticket offers", description = "Public API. Allows any client to download information about available offers")
 public class OfferController {
     @Autowired
     OfferService service;

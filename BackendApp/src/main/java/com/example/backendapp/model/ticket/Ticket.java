@@ -37,6 +37,9 @@ public abstract class Ticket {
     @JoinColumn(name = "user_id", nullable = false)
     private User owner;
 
+    @Version
+    private Integer version;
+
     public abstract boolean isActiveForTram(String tramId, Date dateOfTicketVerification);
     public abstract void activeForTram(String tramId, Date dateOfActivation);
     public abstract boolean isActive(Date dateOfTicketVerification);
