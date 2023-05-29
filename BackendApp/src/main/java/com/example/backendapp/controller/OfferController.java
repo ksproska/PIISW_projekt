@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping()
+@RequestMapping("/public")
 @Tag(name = "Public ticket offers", description = "Public API. Allows any client to download information about available offers")
 public class OfferController {
     @Autowired

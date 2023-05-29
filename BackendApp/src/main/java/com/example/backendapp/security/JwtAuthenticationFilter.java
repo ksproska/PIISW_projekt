@@ -52,9 +52,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             jwt = authHeader.split(" ")[1];
             username = jwtService.extractUsername(jwt);
 
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null)
+            {
                 var userDetails = userService.getUserByUsername(username);
-                if (jwtService.isTokenValid(jwt, userDetails)) {
+                if (jwtService.isTokenValid(jwt, userDetails))
+                {
                     log.info("Request attached to user: '{}' with role '{}'", userDetails.getUsername(), userDetails.getAuthorities().stream().findFirst().get());
                     var authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -68,7 +70,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             response.getWriter().write(e.getMessage());
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            return;
+            //return;
         }
         filterChain.doFilter(request, response);
     }

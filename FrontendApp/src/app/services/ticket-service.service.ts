@@ -6,9 +6,8 @@ import {environment} from "../../environments/environment";
 import {VerificationMessage} from "../models/verification-message";
 
 const host = environment.backendEndpoint;
-const ticketApiPrefix = '/tickets'
-const infoApiPrefix = '/tickets/ticketinfo';
-const offerApiPrefix = '/tickets/offer';
+const userApiPrefix = '/passenger/tickets'
+const ticketCollectorApiPrefix = '/ticket-collector/tickets'
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +17,11 @@ export class TicketServiceService {
   }
 
   getAllTicketInfoForUserId(userId: number): Observable<TicketInfo[]> {
-    return this.http.get<TicketInfo[]>(host + infoApiPrefix + "/" + userId);
+    return this.http.get<TicketInfo[]>(`${host}${userApiPrefix}/${userId}`);
   }
 
   putSingleTicket(offerId: number, userId: number, tramId: string) {
-    return this.http.put(host + offerApiPrefix + "/singleticket",
+    return this.http.put(`${host}${userApiPrefix}/buy/singleticket`,
       {
         "offerId": offerId,
         "userId": userId
@@ -31,7 +30,7 @@ export class TicketServiceService {
   }
 
   putSeasonTicket(offerId: number, userId: number) {
-    return this.http.put(host + offerApiPrefix + "/seasonticket",
+    return this.http.put(`${host}${userApiPrefix}/buy/seasonticket`,
       {
         "offerId": offerId,
         "userId": userId
@@ -40,7 +39,7 @@ export class TicketServiceService {
   }
 
   putCommuterPass(offerId: number, userId: number) {
-    return this.http.put(host + offerApiPrefix + "/commuterpass",
+    return this.http.put(`${host}${userApiPrefix}/buy/commuterpass`,
       {
         "offerId": offerId,
         "userId": userId
@@ -52,13 +51,13 @@ export class TicketServiceService {
     if (tramId == "") {
       tramId = "null"
     }
-    return this.http.get<VerificationMessage>(host + ticketApiPrefix + "/" + ticketId + "/verify/" + tramId);
+    return this.http.get<VerificationMessage>(`${host}${ticketCollectorApiPrefix}/${ticketId}/verify/${tramId}`);
   }
 
   activeTicket(ticketId: number, tramId: string="null") {
     if (tramId == "") {
       tramId = "null"
     }
-    return this.http.put(host + ticketApiPrefix + "/" + ticketId + "/activate/" + tramId, {});
+    return this.http.put(`${host}${ticketCollectorApiPrefix}/${ticketId}/activate/${tramId}`, {});
   }
 }

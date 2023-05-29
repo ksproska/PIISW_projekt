@@ -40,7 +40,7 @@ public class AuthenticationService
             .roles(role.toString())
             .build();
 
-        var user = role == Role.USER ? new Passenger() : new TicketCollector();
+        var user = role == Role.TICKET_COLLECTOR ? new TicketCollector() : new Passenger();
         user.setPassword(userDetails.getPassword());
         user.setUsername(userDetails.getUsername());
         user.setRole(role);

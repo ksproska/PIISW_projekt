@@ -46,7 +46,7 @@ public class TicketService {
     }
 
     public List<TicketInfo> getTicketInfo(Long userId) {
-        var user = userRepository.findById(userId).orElseThrow();
+        var user = userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("User not found"));
         List<Ticket> tickets = ticketRepository.findAllByOwnerIdOrderByIdDesc(user.getId());
         return tickets.stream().map(t -> new TicketInfo(t)).toList();
     }
@@ -93,20 +93,20 @@ public class TicketService {
         ticketRepository.save(ticket);
     }
 
-    public boolean activateTicket(Long ticketId, String tramId) {
-        var ticket = ticketRepository.findById(ticketId).orElse(null);
+    public boolean activateTicket(Long ticketId, String tramId) throws NoSuchElementException, IllegalStateException {
+        var ticket = ticketRepository.findById(ticketId).orElseThrow(() -> new NoSuchElementException("Ticket not found"));
         Date timeNow = Calendar.getInstance().getTime();
         if (!ticket.isActiveForTram(tramId, timeNow) && ticket.getClipTime() == null) {
             ticket.activeForTram(tramId, timeNow);
             ticketRepository.save(ticket);
             return true;
         }
-        return false;
+        throw new IllegalStateException("Couldn't activate this ticket");
     }
 
     private <T extends Offer> Pair<Passenger, T> getPassengerAndOffer(Long userId, Long offerId) throws NoSuchElementException
     {
-        var user = (Passenger) userRepository.findById(userId).orElseThrow();
+        var user = (Passenger) userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("User not found"));
         var offer = (T) offerRepository.findById(offerId).orElseThrow();
         return new Pair<Passenger, T>(user, offer);
     }

@@ -14,6 +14,9 @@ import java.util.List;
 
 @Entity
 public class Passenger extends User {
+    private String name;
+
+    private String surname;
 
     @JsonIgnore
     @OneToMany(mappedBy = "owner",
@@ -37,4 +40,20 @@ public class Passenger extends User {
 
     @Override
     public boolean isEnabled() { return true; }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
