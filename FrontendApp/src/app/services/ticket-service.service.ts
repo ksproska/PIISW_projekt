@@ -60,6 +60,6 @@ export class TicketServiceService {
     if (tramId == "") {
       tramId = "null"
     }
-    return this.http.put(`${host}${ticketCollectorApiPrefix}/${ticketId}/activate/${tramId}`, {});
+    return this.http.put(`${host}${userApiPrefix}/${ticketId}/activate/${tramId}`, {});
   }
 }
