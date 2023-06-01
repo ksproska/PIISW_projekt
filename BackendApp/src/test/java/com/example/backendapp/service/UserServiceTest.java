@@ -1,11 +1,33 @@
 package com.example.backendapp.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import com.example.backendapp.repository.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-@DataJpaTest
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
+
+
 public class UserServiceTest
 {
-    @Autowired
+    private UserRepository userRepository;
     private UserService userService;
+
+    @BeforeEach
+    public void setUp() {
+        userRepository = Mockito.mock(UserRepository.class);
+        userService = new UserService(userRepository);
+    }
+
+    @Test
+    public void testGetUserByUsername_UserNotFound() {
+        String username = "nonexistentuser";
+        when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
+
+        assertThrows(UsernameNotFoundException.class, () -> userService.getUserByUsername(username));
+    }
 }
