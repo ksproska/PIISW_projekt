@@ -1,5 +1,7 @@
-package com.example.backendapp.controller;
+package com.example.backendapp.controller.api;
 
+import com.example.backendapp.controller.request.CreateTicketRequest;
+import com.example.backendapp.controller.response.VerificationMessage;
 import com.example.backendapp.service.TicketInfo;
 import com.example.backendapp.service.TicketService;
 import io.swagger.v3.oas.annotations.Operation;

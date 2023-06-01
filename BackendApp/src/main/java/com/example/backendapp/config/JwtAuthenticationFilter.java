@@ -1,5 +1,6 @@
-package com.example.backendapp.security;
+package com.example.backendapp.config;
 
+import com.example.backendapp.service.JwtService;
 import com.example.backendapp.service.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;

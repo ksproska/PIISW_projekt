@@ -1,4 +1,4 @@
-package com.example.backendapp.security.responses;
+package com.example.backendapp.controller.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

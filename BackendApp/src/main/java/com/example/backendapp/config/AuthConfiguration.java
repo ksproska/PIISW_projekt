@@ -1,4 +1,4 @@
-package com.example.backendapp.security;
+package com.example.backendapp.config;
 
 import com.example.backendapp.service.UserService;
 import lombok.RequiredArgsConstructor;

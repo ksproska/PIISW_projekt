@@ -1,6 +1,6 @@
 package com.example.backendapp.service;
 
-import com.example.backendapp.controller.CreateTicketRequest;
+import com.example.backendapp.controller.request.CreateTicketRequest;
 import com.example.backendapp.model.common.TicketStatus;
 import com.example.backendapp.model.offer.Offer;
 import com.example.backendapp.model.offer.OfferCommuterPass;

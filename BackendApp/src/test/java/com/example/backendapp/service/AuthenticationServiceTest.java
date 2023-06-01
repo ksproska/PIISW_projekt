@@ -2,8 +2,7 @@ package com.example.backendapp.service;
 
 import com.example.backendapp.model.user.Role;
 import com.example.backendapp.repository.UserRepository;
-import com.example.backendapp.security.JwtService;
-import com.example.backendapp.security.requests.RegisterRequest;
+import com.example.backendapp.controller.request.RegisterRequest;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -59,7 +58,6 @@ public class AuthenticationServiceTest
         // then
         assertNotNull(response);
         assertInstanceOf(String.class, response.getToken());
-        //assertEquals(username, jwtService.extractUsername(response.getToken())); TODO mock extractUsername
     }
 
     @Test
@@ -84,6 +82,21 @@ public class AuthenticationServiceTest
         // then
         assertNotNull(response);
         assertInstanceOf(String.class, response.getToken());
-        //assertEquals(username, jwtService.extractUsername(response.getToken())); TODO mock extractUsername
+    }
+
+    @Test
+    void shouldPassAuthentication()
+    {
+        // given
+        //var username = "Franciszek";
+        //var password = "Admin123!";
+        //var request = new AuthenticationRequest(username, password);
+
+        // when
+        //var user = userRepository.findById(101L);
+        //var response = authenticationService.authenticate(request);
+
+        // then
+        //assertNotNull(response);
     }
 }
