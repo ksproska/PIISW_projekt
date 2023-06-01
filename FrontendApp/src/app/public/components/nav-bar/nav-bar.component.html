@@ -16,8 +16,8 @@
         </div>
         <ng-template #loggedIn>
           <a [routerLink]="['validity']" class="nav-link active" [hidden]="getUsersRole() == 'USER'">Validity check</a>
-          <a [routerLink]="['shop']" class="nav-link active">Shop</a>
-          <a [routerLink]="['my-tickets']" class="nav-link active" routerLink="">MyTickets</a>
+          <a [routerLink]="['shop']" class="nav-link active" [hidden]="getUsersRole() == 'TICKET_COLLECTOR'">Shop</a>
+          <a [routerLink]="['my-tickets']" class="nav-link active" [hidden]="getUsersRole() == 'TICKET_COLLECTOR'">MyTickets</a>
           <a (click)="logout()" class="nav-link active">Logout</a>
         </ng-template>
 
