@@ -108,14 +108,14 @@ export class ShopComponent implements OnInit, OnDestroy {
 
   purchaseSingleTicket() {
     // @ts-ignore
-    this.service.putSingleTicket(this.selectedSingleTicket.id, 101).subscribe({
+    this.service.putSingleTicket(this.selectedSingleTicket.id).subscribe({
       complete: () => this.message = "Purchase successful. You bought single ticket for " + this.selectedSingleTicket?.price + " PLN."
     }); // TODO remove userId
   }
 
   purchaseSeasonTicket() {
     // @ts-ignore
-    this.service.putSeasonTicket(this.selectedSeasonTicket.id, 101).subscribe({
+    this.service.putSeasonTicket(this.selectedSeasonTicket.id).subscribe({
       complete: () => this.message = "Purchase successful. You bought season ticket for " + this.selectedSeasonTicket?.price + " PLN." +
         "Ticket validity " + this.enumSeasonCommuter[this.selectedSeasonTicket!.validityLengthInDays]
 
@@ -124,7 +124,7 @@ export class ShopComponent implements OnInit, OnDestroy {
 
   purchaseCommuterPass() {
     // @ts-ignore
-    this.service.putCommuterPass(this.selectedCommuterTicket.id, 101).subscribe({
+    this.service.putCommuterPass(this.selectedCommuterTicket.id).subscribe({
       complete: () => this.message = "Purchase successful. You bought season ticket for " + this.selectedCommuterTicket?.price + " PLN." +
         "Ticket validity " + this.enumSeasonCommuter[this.selectedCommuterTicket!.validityLengthInMinutes]
     }); // TODO remove userId

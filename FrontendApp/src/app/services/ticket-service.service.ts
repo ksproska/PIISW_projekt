@@ -9,6 +9,8 @@ const host = environment.backendEndpoint;
 const userApiPrefix = '/passenger/tickets'
 const ticketCollectorApiPrefix = '/ticket-collector/tickets'
 
+const userIdGlobal = "userId";
+
 @Injectable({
   providedIn: 'root'
 })
@@ -20,29 +22,29 @@ export class TicketServiceService {
     return this.http.get<TicketInfo[]>(`${host}${userApiPrefix}/${userId}`);
   }
 
-  putSingleTicket(offerId: number, userId: number, tramId: string) {
+  putSingleTicket(offerId: number, tramId: string) {
     return this.http.put(`${host}${userApiPrefix}/buy/singleticket`,
       {
         "offerId": offerId,
-        "userId": userId
+        "userId": localStorage.getItem(userIdGlobal)
       }
     );
   }
 
-  putSeasonTicket(offerId: number, userId: number) {
+  putSeasonTicket(offerId: number) {
     return this.http.put(`${host}${userApiPrefix}/buy/seasonticket`,
       {
         "offerId": offerId,
-        "userId": userId
+        "userId": localStorage.getItem(userIdGlobal)
       }
     );
   }
 
-  putCommuterPass(offerId: number, userId: number) {
+  putCommuterPass(offerId: number) {
     return this.http.put(`${host}${userApiPrefix}/buy/commuterpass`,
       {
         "offerId": offerId,
-        "userId": userId
+        "userId": localStorage.getItem(userIdGlobal)
       }
     );
   }

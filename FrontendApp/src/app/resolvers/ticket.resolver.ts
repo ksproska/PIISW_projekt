@@ -15,6 +15,6 @@ export class TicketResolver implements Resolve<TicketInfo[]> {
   constructor(private readonly service: TicketServiceService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<TicketInfo[]> {
-    return this.service.getAllTicketInfoForUserId(101); // TODO actual user id
+    return this.service.getAllTicketInfoForUserId(Number(localStorage.getItem("userId"))); // TODO actual user id
   }
 }
