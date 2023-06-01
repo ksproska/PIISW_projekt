@@ -46,7 +46,7 @@ public class AuthenticationService
 
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(userDetails);
-        return AuthenticationResponse.builder().token(jwtToken).build();
+        return AuthenticationResponse.builder().token(jwtToken).userId(user.getId()).build();
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request)
@@ -54,6 +54,6 @@ public class AuthenticationService
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         var userDetails = userRepository.findByUsername(request.getUsername()).orElseThrow();
         var jwtToken = jwtService.generateToken(userDetails);
-        return AuthenticationResponse.builder().token(jwtToken).build();
+        return AuthenticationResponse.builder().token(jwtToken).userId(userDetails.getId()).build();
     }
 }
