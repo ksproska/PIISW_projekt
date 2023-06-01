@@ -7,7 +7,7 @@ import {OfferSeasonTicket} from "../models/offer-season-ticket";
 import {OfferCommuterPass} from "../models/offer-commuter-pass";
 
 const host = environment.backendEndpoint;
-const offersApiPrefix = '/offers';
+const offersApiPrefix = '/public/offers';
 
 @Injectable({
   providedIn: 'root'

@@ -1,13 +1,12 @@
 package com.example.backendapp.service;
 
-import com.example.backendapp.controller.CreateTicketRequest;
+import com.example.backendapp.controller.request.CreateTicketRequest;
+import com.example.backendapp.model.common.TicketStatus;
+import com.example.backendapp.model.offer.Offer;
 import com.example.backendapp.model.offer.OfferCommuterPass;
 import com.example.backendapp.model.offer.OfferSeasonTicket;
 import com.example.backendapp.model.offer.OfferSingleTicket;
-import com.example.backendapp.model.ticket.CommuterPass;
-import com.example.backendapp.model.ticket.SeasonTicket;
-import com.example.backendapp.model.ticket.SingleTicket;
-import com.example.backendapp.model.ticket.Ticket;
+import com.example.backendapp.model.ticket.*;
 import com.example.backendapp.model.user.Passenger;
 import com.example.backendapp.repository.OfferRepository;
 import com.example.backendapp.repository.TicketRepository;
@@ -15,6 +14,7 @@ import com.example.backendapp.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.javatuples.Pair;
 
 import java.util.*;
 
@@ -34,26 +34,27 @@ public class TicketService {
 
     public String isActiveForTram(long ticketId, String tramId) {
         var ticket = ticketRepository.findById(ticketId);
-        if (ticket.isEmpty()) return "NOT found";
+        if (ticket.isEmpty()) return TicketStatus.NOT_FOUND.getStatus();
         var timeNow = Calendar.getInstance().getTime();
         if (ticket.get().getClipTime() == null) {
-            return "NOT clipped";
+            return TicketStatus.NOT_CLIPPED.getStatus();
         }
         if (ticket.get().isActiveForTram(tramId, timeNow)) {
-            return "valid";
+            return TicketStatus.VALID.getStatus();
         }
-        return "NOT valid";
+        return TicketStatus.INVALID.getStatus();
     }
 
     public List<TicketInfo> getTicketInfo(Long userId) {
-        List<Ticket> tickets = ticketRepository.findAllByOwnerIdOrderByIdDesc(userId);
-        List<TicketInfo> ticketInfos = tickets.stream().map(t -> new TicketInfo(t)).toList();
-        return ticketInfos;
+        var user = userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("User not found"));
+        List<Ticket> tickets = ticketRepository.findAllByOwnerIdOrderByIdDesc(user.getId());
+        return tickets.stream().map(t -> new TicketInfo(t)).toList();
     }
 
     public void saveSingleTicket(CreateTicketRequest request) {
-        Passenger user = (Passenger) userRepository.findById(request.userId()).orElse(null);
-        OfferSingleTicket offer = (OfferSingleTicket) offerRepository.findById(request.offerId()).orElse(null);
+        Pair<Passenger, OfferSingleTicket> passengerWithOffer = getPassengerAndOffer(request.userId(), request.offerId());
+        var user = passengerWithOffer.getValue0();
+        var offer = passengerWithOffer.getValue1();
 
         var ticket = new SingleTicket();
         ticket.setPrice(offer.getPrice());
@@ -64,8 +65,9 @@ public class TicketService {
     }
 
     public void saveSeasonTicket(CreateTicketRequest request) {
-        Passenger user = (Passenger) userRepository.findById(request.userId()).orElse(null);
-        OfferSeasonTicket offer = (OfferSeasonTicket) offerRepository.findById(request.offerId()).orElse(null);
+        Pair<Passenger, OfferSeasonTicket> passengerWithOffer = getPassengerAndOffer(request.userId(), request.offerId());
+        var user = passengerWithOffer.getValue0();
+        var offer = passengerWithOffer.getValue1();
 
         var ticket = new SeasonTicket();
         ticket.setPrice(offer.getPrice());
@@ -78,8 +80,9 @@ public class TicketService {
     }
 
     public void saveCommuterPass(CreateTicketRequest request) {
-        Passenger user = (Passenger) userRepository.findById(request.userId()).orElse(null);
-        OfferCommuterPass offer = (OfferCommuterPass) offerRepository.findById(request.offerId()).orElse(null);
+        Pair<Passenger, OfferCommuterPass> passengerWithOffer = getPassengerAndOffer(request.userId(), request.offerId());
+        var user = passengerWithOffer.getValue0();
+        var offer = passengerWithOffer.getValue1();
 
         var ticket = new CommuterPass();
         ticket.setPrice(offer.getPrice());
@@ -90,14 +93,21 @@ public class TicketService {
         ticketRepository.save(ticket);
     }
 
-    public boolean activateTicket(Long ticketId, String tramId) {
-        var ticket = ticketRepository.findById(ticketId).orElse(null);
+    public boolean activateTicket(Long ticketId, String tramId) throws NoSuchElementException, IllegalStateException {
+        var ticket = ticketRepository.findById(ticketId).orElseThrow(() -> new NoSuchElementException("Ticket not found"));
         Date timeNow = Calendar.getInstance().getTime();
         if (!ticket.isActiveForTram(tramId, timeNow) && ticket.getClipTime() == null) {
             ticket.activeForTram(tramId, timeNow);
             ticketRepository.save(ticket);
             return true;
         }
-        return false;
+        throw new IllegalStateException("Couldn't activate this ticket");
+    }
+
+    private <T extends Offer> Pair<Passenger, T> getPassengerAndOffer(Long userId, Long offerId) throws NoSuchElementException
+    {
+        var user = (Passenger) userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("User not found"));
+        var offer = (T) offerRepository.findById(offerId).orElseThrow();
+        return new Pair<Passenger, T>(user, offer);
     }
 }

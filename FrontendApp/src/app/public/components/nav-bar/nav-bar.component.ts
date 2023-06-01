@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
 
+const TOKEN_NAME = 'TOKEN_BIEDA_MPK'
+
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -12,7 +14,8 @@ export class NavBarComponent {
 
 
   logout(){
-
+    localStorage.removeItem(TOKEN_NAME)
+    this.router.navigate(['/login'])
   }
 
   isVisible(): boolean {

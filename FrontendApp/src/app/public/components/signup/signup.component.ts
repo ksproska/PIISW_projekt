@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import {AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
+import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
+import { Router } from '@angular/router';
+import { AuthService } from 'app/services/auth.service';
+import { catchError, tap } from 'rxjs';
+
+const TOKEN_NAME = 'TOKEN_BIEDA_MPK'
 
 @Component({
   selector: 'app-signin',
@@ -8,17 +13,28 @@ import {AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators}
 })
 export class SignupComponent {
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private readonly formBuilder: FormBuilder,
+    private readonly authService: AuthService,
+    private readonly router: Router) {
   }
 
   registerForm = this.formBuilder.group({
-    username: ['', [Validators.required]],
-    password: ['', {validators: [Validators.required, Validators.minLength(8),Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$")], updateOn: 'blur'}],
+    username: ['', [Validators.required, Validators.email]],
+    password: ['', {validators: [Validators.required, Validators.minLength(8), Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$")], updateOn: 'blur'}],
     password2: ['', {validators: Validators.required, updateOn: 'blur'}],
   }, {validators: samePasswordValidator});
 
   onSubmit(){
-
+    this.authService.signUp({
+      username: this.registerForm.value.username!, 
+      password: this.registerForm.value.password!
+    }).pipe(
+      catchError(error => { throw error }), 
+      tap((respone: any) => {
+        localStorage.setItem(TOKEN_NAME, 'Bearer ' + respone.token)
+        this.router.navigate(['/home']);
+      })).subscribe();
   }
 }
 
