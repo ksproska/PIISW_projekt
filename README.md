@@ -1,44 +1,5 @@
 # PIISW_projekt
 
-## TODO
-### Widoki
-#### Public
-* [ ]  logowanie dla pasażera i dla biletera (ten sam widok)
-* [ ]  zakładanie konta dla pasażera
-
-#### Bileter
-* [ ]  sprawdzanie ważności biletu (output -> ok, nie ok, nie istnieje kod)
-
-#### Pasażer
-* [ ]  przeglądanie oferty biletowej (wybór ulgi w combobox na górze strony, potem osobne karty dla 3 typów biletów,
-  dla jednorazowego input field dla numeru pojazdu)
-* [ ]  kupno biletu (koszyk) -> listę wybranych biletów i przycisk kup -> kręcące się kułeczko
-* [ ]  przeglądanie kupionych biletów (historia) -> dla każdego jest info czy ważny czy nie
-
-----
-
-Nikodem
-* [ ]  widoki
-
-Michał
-* [ ]  jak z autoryzacją
-* [ ]  dodanie ticketu przykładowego
-* [ ]  dodanie endpointa do sprawdzania czy ticket ważny
-* [ ]  podpięcie endpointa do resolvera
-
-* Kamila
-* [X]  wrzucić ofrertę biletową do bazy
-* [X]  sprawdzić czy endpointy zwracają poprawne jsony
-* [X]  podepnę endpointy do resolverów
-
-Nieprzydzielone:
-* [ ]  findAll dla ticketów nie działa
-* [ ]  security nie jest dodane (spring-boot-security)
-* [ ]  local storage do przechowywania zawartości koszyka
-* [ ]  logowanie
-* [ ]  tworzenie konta
-* [ ]  testy
-
 ## Elektroniczny bilet miejski (Treść zadania)
 
 **Użytkownik** uzyskuje możliwość <ins>rejestracji w serwisie</ins> oraz <ins>wygenerowanie wirtualnego biletu</ins>
@@ -82,3 +43,12 @@ Funkcja wymaga <ins>zalogowania się</ins> do systemu. Bileter może <ins>sprawd
 ## Wstępny projekt
 
 ![uml](readme_images/uml_diagram.png)
+
+## UI projektu
+
+![](readme_images/login.png)
+![](readme_images/register.png)
+![](readme_images/check_ticket.png)
+![](readme_images/shop.png)
+![](readme_images/ticket_bought.png)
+![](readme_images/history.png)
