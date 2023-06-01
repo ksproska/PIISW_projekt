@@ -27,12 +27,13 @@ export class SignupComponent {
 
   onSubmit(){
     this.authService.signUp({
-      username: this.registerForm.value.username!, 
+      username: this.registerForm.value.username!,
       password: this.registerForm.value.password!
     }).pipe(
-      catchError(error => { throw error }), 
+      catchError(error => { throw error }),
       tap((respone: any) => {
         localStorage.setItem(TOKEN_NAME, 'Bearer ' + respone.token)
+        localStorage.setItem("userId", respone.userId)
         this.router.navigate(['/home']);
       })).subscribe();
   }

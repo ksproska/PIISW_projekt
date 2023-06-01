@@ -20,4 +20,6 @@ export class AuthService {
   signUp = (requestBody: AuthRegisterRequest): Observable<String> => this.http.post<string>(`${host}${prefix}/passenger/register`, requestBody);
 
   getAuthorizationToken = () => localStorage.getItem(TOKEN_NAME);
+
+
 }

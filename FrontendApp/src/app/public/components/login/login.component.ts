@@ -14,7 +14,7 @@ const TOKEN_NAME = 'TOKEN_BIEDA_MPK'
 export class LoginComponent implements OnInit{
 
   constructor(
-    private readonly formBuilder: FormBuilder, 
+    private readonly formBuilder: FormBuilder,
     private readonly authService: AuthService,
     private readonly router: Router) {
   }
@@ -24,18 +24,19 @@ export class LoginComponent implements OnInit{
       password: ['', {validators: [Validators.required], updateOn: 'blur'}]
     }
   )
-  
-  ngOnInit(): void {    
+
+  ngOnInit(): void {
   }
 
   onLogin(): void {
     this.authService.signIn({
-      username: this.loginForm.value.username!, 
+      username: this.loginForm.value.username!,
       password: this.loginForm.value.password!
     }).pipe(
-      catchError(error => { throw error }), 
+      catchError(error => { throw error }),
       tap((respone: any) => {
         localStorage.setItem(TOKEN_NAME, 'Bearer ' + respone.token)
+        localStorage.setItem("userId", respone.userId)
         this.router.navigate(['/home']);
       })).subscribe();
   }
